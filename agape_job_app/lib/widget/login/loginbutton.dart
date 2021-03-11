@@ -15,7 +15,7 @@ class _LoginButtonState extends State<LoginButton> {
       padding: EdgeInsets.symmetric(vertical: 25),
       width: 340,
       child: RaisedButton(
-        onPressed: () => print('Login Pressed'),
+        onPressed: () =>  Navigator.of(context).pushNamed("/inicio"),
         padding: EdgeInsets.all(20),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10)

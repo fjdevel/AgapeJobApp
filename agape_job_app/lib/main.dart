@@ -1,3 +1,4 @@
+import 'package:agape_job_app/pages/iniciopage.dart';
 import 'package:agape_job_app/pages/login.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue),
       routes: <String,WidgetBuilder>{
-        "/login":(BuildContext context)=>LoginScreen()
+        "/login":(BuildContext context)=>LoginScreen(),
+        "/inicio":(BuildContext context)=>InicioPage()
       },
       home: LoginScreen(),
     );
