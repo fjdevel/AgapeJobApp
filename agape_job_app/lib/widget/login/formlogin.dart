@@ -17,7 +17,7 @@ class _FormLoginState extends State<FormLogin> {
         borderRadius: BorderRadius.only(topLeft: Radius.circular(120)),
         color: dSecundaryColor
       ),
-      height: size.height*0.70,
+      height: size.height-230,
       width: double.infinity,
       child: Column(
         children: [
