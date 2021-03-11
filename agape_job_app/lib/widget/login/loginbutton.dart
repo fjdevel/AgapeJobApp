@@ -13,7 +13,7 @@ class _LoginButtonState extends State<LoginButton> {
     return Container(
       margin: EdgeInsets.only(top: 20),
       padding: EdgeInsets.symmetric(vertical: 25),
-      width: 340,
+      width: MediaQuery.of(context).size.width * 0.85,
       child: RaisedButton(
         onPressed: () => print('Login Pressed'),
         padding: EdgeInsets.all(20),

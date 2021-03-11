@@ -13,7 +13,7 @@ class _EmailLoginState extends State<EmailLogin> {
       margin: EdgeInsets.only(
           top: 40
       ),
-      width: 340,
+      width: MediaQuery.of(context).size.width * 0.85,
       decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(
