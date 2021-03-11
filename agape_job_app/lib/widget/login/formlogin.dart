@@ -1,4 +1,8 @@
 import 'package:agape_job_app/util/colors.dart';
+import 'package:agape_job_app/widget/login/emaillogin.dart';
+import 'package:agape_job_app/widget/login/loginbutton.dart';
+import 'package:agape_job_app/widget/login/passwordlogin.dart';
+import 'package:agape_job_app/widget/login/singuplogin.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +30,11 @@ class _FormLoginState extends State<FormLogin> {
             child: Center(
               child: Text("Bienvenido",style: TextStyle(fontSize: 42,fontWeight: FontWeight.w400),),
             ),
-          )
+          ),
+          EmailLogin(),
+          PasswordLogin(),
+          LoginButton(),
+          SingUpLogin()
         ],
       ),
     );

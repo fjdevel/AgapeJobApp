@@ -1,4 +1,5 @@
 import 'package:agape_job_app/util/colors.dart';
+import 'package:agape_job_app/widget/login/emaillogin.dart';
 import 'package:agape_job_app/widget/login/formlogin.dart';
 import 'package:agape_job_app/widget/login/logo.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Center(
               child: Logo(),
             ),
-            FormLogin()
+            FormLogin(),
           ],
         ),
       ),
