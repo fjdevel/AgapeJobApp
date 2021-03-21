@@ -15,6 +15,10 @@ class _FormLoginState extends State<FormLogin> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    //controladores de textos
+    TextEditingController emailController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
+
     return Container(
       margin: EdgeInsets.only(top: 50),
       decoration: new BoxDecoration(
@@ -31,9 +35,9 @@ class _FormLoginState extends State<FormLogin> {
               child: Text("Bienvenido",style: TextStyle(fontSize: 42,fontWeight: FontWeight.w400),),
             ),
           ),
-          EmailLogin(),
-          PasswordLogin(),
-          LoginButton(),
+          EmailLogin(emailController),
+          PasswordLogin(passwordController),
+          LoginButton(passwordController,emailController),
           SingUpLogin()
         ],
       ),

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 class PasswordLogin extends StatefulWidget {
+  final TextEditingController controller;
+  const PasswordLogin(this.controller);
+
   @override
   _PasswordLoginState createState() => _PasswordLoginState();
 }
@@ -47,6 +50,7 @@ class _PasswordLoginState extends State<PasswordLogin> {
               )
           ),
           TextField(
+            controller: widget.controller,
             obscureText: true,
             decoration: InputDecoration(
               border: InputBorder.none,

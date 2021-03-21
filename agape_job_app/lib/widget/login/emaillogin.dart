@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 class EmailLogin extends StatefulWidget {
+  final TextEditingController controller;
+  const EmailLogin(this.controller);
+
   @override
   _EmailLoginState createState() => _EmailLoginState();
+
 }
 
 class _EmailLoginState extends State<EmailLogin> {
@@ -45,6 +49,7 @@ class _EmailLoginState extends State<EmailLogin> {
               )
           ),
           TextField(
+            controller: widget.controller,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
               border: InputBorder.none,
