@@ -1,3 +1,4 @@
+import 'package:agape_job_app/pages/detalleplaza.dart';
 import 'package:agape_job_app/util/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,7 +12,9 @@ class _SingUpLoginState extends State<SingUpLogin> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      //onTap: () => print("Sign Up Pressed"),
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => DetallePlaza()));
+      },
       child: RichText(
         text: TextSpan(children: [
           TextSpan(
