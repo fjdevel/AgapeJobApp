@@ -13,11 +13,12 @@ class EmailLogin extends StatefulWidget {
 class _EmailLoginState extends State<EmailLogin> {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
       margin: EdgeInsets.only(
-          top: 40
+          top: size.height*0.06
       ),
-      width: MediaQuery.of(context).size.width * 0.85,
+      width: size.width * 0.85,
       decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(
@@ -40,7 +41,7 @@ class _EmailLoginState extends State<EmailLogin> {
           Container(
               margin: EdgeInsets.only(
                   left: 20,
-                  top: 10
+                  top: size.height*0.02
               ),
               padding: EdgeInsets.only(top: 2),
               child: Text(

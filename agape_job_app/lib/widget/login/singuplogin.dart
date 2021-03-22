@@ -10,6 +10,7 @@ class SingUpLogin extends StatefulWidget {
 class _SingUpLoginState extends State<SingUpLogin> {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return GestureDetector(
       //onTap: () => print("Sign Up Pressed"),
       child: RichText(

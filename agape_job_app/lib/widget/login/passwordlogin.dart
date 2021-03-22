@@ -10,13 +10,15 @@ class PasswordLogin extends StatefulWidget {
 }
 
 class _PasswordLoginState extends State<PasswordLogin> {
+
   @override
   Widget build(BuildContext context) {
+    Size size =MediaQuery.of(context).size;
     return Container(
       margin: EdgeInsets.only(
-          top: 40
+          top: size.height*0.02
       ),
-      width: MediaQuery.of(context).size.width * 0.85,
+      width: size.width * 0.85,
       decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(
@@ -39,7 +41,7 @@ class _PasswordLoginState extends State<PasswordLogin> {
           Container(
               margin: EdgeInsets.only(
                   left: 20,
-                  top: 10
+                  top: size.height*0.01
               ),
               padding: EdgeInsets.only(
                   top: 2

@@ -20,17 +20,17 @@ class _FormLoginState extends State<FormLogin> {
     TextEditingController passwordController = TextEditingController();
 
     return Container(
-      margin: EdgeInsets.only(top: 50),
+      margin: EdgeInsets.only(top:size.height*0.05),
       decoration: new BoxDecoration(
         borderRadius: BorderRadius.only(topLeft: Radius.circular(120)),
         color: dSecundaryColor
       ),
-      height: size.height-230,
+      height: size.height-(size.height*0.27),
       width: double.infinity,
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.only(top: 80),
+            margin: EdgeInsets.only(top: size.height*0.06),
             child: Center(
               child: Text("Bienvenido",style: TextStyle(fontSize: 42,fontWeight: FontWeight.w400),),
             ),

@@ -15,10 +15,11 @@ class LoginButton extends StatefulWidget {
 class _LoginButtonState extends State<LoginButton> {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
-      margin: EdgeInsets.only(top: 20),
+      margin: EdgeInsets.only(top: size.height*0.02),
       padding: EdgeInsets.symmetric(vertical: 25),
-      width: MediaQuery.of(context).size.width * 0.85,
+      width: size.width * 0.85,
       child: RaisedButton(
         onPressed: ()async{
           var url = Uri.http('192.168.1.4','/jeo/servicios/seguridad/inicio_de_sesion.php');
