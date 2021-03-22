@@ -3,16 +3,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Logo extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
-      margin: EdgeInsets.only(top: 50),
-      width: 130,
-      height: 130,
+      margin: EdgeInsets.only(top: size.height*0.05),
+      height: size.height*0.17,
+      width: size.width*0.8,
       decoration: BoxDecoration(
-        shape: BoxShape.circle,
         image: DecorationImage(
-            image: AssetImage('assets/images/agape logo.PNG'),
+            image: AssetImage('assets/images/logoagape.png'),
             fit: BoxFit.fitWidth
         ),
       ),

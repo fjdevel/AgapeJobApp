@@ -11,6 +11,7 @@ class SingUpLogin extends StatefulWidget {
 class _SingUpLoginState extends State<SingUpLogin> {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) => DetallePlaza()));
