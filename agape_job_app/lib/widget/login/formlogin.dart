@@ -21,25 +21,26 @@ class _FormLoginState extends State<FormLogin> {
 
     return Container(
       margin: EdgeInsets.only(top:size.height*0.05),
+      padding: EdgeInsets.only(bottom: size.height*0.2),
       decoration: new BoxDecoration(
         borderRadius: BorderRadius.only(topLeft: Radius.circular(120)),
         color: dSecundaryColor
       ),
-      height: size.height-(size.height*0.27),
-      width: double.infinity,
-      child: Column(
-        children: [
-          Container(
-            margin: EdgeInsets.only(top: size.height*0.06),
-            child: Center(
-              child: Text("Bienvenido",style: TextStyle(fontSize: 42,fontWeight: FontWeight.w400),),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              margin: EdgeInsets.only(top: size.height*0.06),
+              child: Center(
+                child: Text("Bienvenido",style: TextStyle(fontSize: 42,fontWeight: FontWeight.w400),),
+              ),
             ),
-          ),
-          EmailLogin(emailController),
-          PasswordLogin(passwordController),
-          LoginButton(passwordController,emailController),
-          SingUpLogin()
-        ],
+            EmailLogin(emailController),
+            PasswordLogin(passwordController),
+            LoginButton(passwordController,emailController),
+            SingUpLogin()
+          ],
+        ),
       ),
     );
   }

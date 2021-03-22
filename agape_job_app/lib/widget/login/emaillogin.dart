@@ -41,7 +41,7 @@ class _EmailLoginState extends State<EmailLogin> {
           Container(
               margin: EdgeInsets.only(
                   left: 20,
-                  top: size.height*0.02
+                  top: 10
               ),
               padding: EdgeInsets.only(top: 2),
               child: Text(

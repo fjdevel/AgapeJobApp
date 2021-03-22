@@ -1,5 +1,6 @@
 import 'package:agape_job_app/pages/iniciopage.dart';
 import 'package:agape_job_app/pages/login.dart';
+import 'package:agape_job_app/pages/profile.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +17,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(primarySwatch: Colors.blue),
       routes: <String,WidgetBuilder>{
         "/login":(BuildContext context)=>LoginScreen(),
-        "/inicio":(BuildContext context)=>InicioPage()
+        "/inicio":(BuildContext context)=>InicioPage(),
+        "/perfil":(BuildContext context)=>Profile(),
       },
       home: LoginScreen(),
     );
