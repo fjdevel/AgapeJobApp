@@ -1,3 +1,4 @@
+import 'package:agape_job_app/pages/busqueda.dart';
 import 'package:agape_job_app/pages/iniciopage.dart';
 import 'package:agape_job_app/pages/login.dart';
 import 'package:agape_job_app/pages/profile.dart';

@@ -1,3 +1,4 @@
+import 'package:agape_job_app/pages/busqueda.dart';
 import 'package:agape_job_app/util/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,18 @@ class MenuBar extends StatelessWidget implements PreferredSizeWidget{
     return AppBar(title: Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        IconButton(icon: Icon(Icons.search,color: Colors.black,)),
+        IconButton(onPressed: () {
+          showGeneralDialog(
+              context: context,
+              barrierDismissible: true,
+              barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+              transitionDuration: Duration(milliseconds: 300),
+              pageBuilder: (BuildContext context, Animation first, Animation second){
+                return Busqueda();
+              }
+          );
+        },
+            icon: Icon(Icons.search,color: Colors.black,)),
         IconButton(icon:Icon(Icons.tune,color: Colors.black,))
       ],
     )
