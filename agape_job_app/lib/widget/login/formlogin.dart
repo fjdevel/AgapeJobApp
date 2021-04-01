@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:agape_job_app/util/colors.dart';
 import 'package:agape_job_app/widget/login/emaillogin.dart';
 import 'package:agape_job_app/widget/login/loginbutton.dart';
@@ -12,12 +14,11 @@ class FormLogin extends StatefulWidget {
 }
 
 class _FormLoginState extends State<FormLogin> {
+
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    //controladores de textos
-    TextEditingController emailController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
 
     return Container(
       margin: EdgeInsets.only(top:size.height*0.05),
@@ -35,9 +36,9 @@ class _FormLoginState extends State<FormLogin> {
                 child: Text("Bienvenido",style: TextStyle(fontSize: 42,fontWeight: FontWeight.w400),),
               ),
             ),
-            EmailLogin(emailController),
-            PasswordLogin(passwordController),
-            LoginButton(passwordController,emailController),
+            EmailLogin(),
+            PasswordLogin(),
+            LoginButton(),
             SingUpLogin()
           ],
         ),

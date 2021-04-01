@@ -1,16 +1,15 @@
+import 'package:agape_job_app/services/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
 class PasswordLogin extends StatefulWidget {
-  final TextEditingController controller;
-  const PasswordLogin(this.controller);
 
   @override
   _PasswordLoginState createState() => _PasswordLoginState();
 }
 
 class _PasswordLoginState extends State<PasswordLogin> {
-
   @override
   Widget build(BuildContext context) {
     Size size =MediaQuery.of(context).size;
@@ -52,16 +51,19 @@ class _PasswordLoginState extends State<PasswordLogin> {
               )
           ),
           TextField(
-            controller: widget.controller,
             obscureText: true,
             decoration: InputDecoration(
               border: InputBorder.none,
               hintText: '*****************',
               hintStyle: TextStyle(fontSize: 14),
               contentPadding: EdgeInsets.fromLTRB(20, 25, 0, 10),
-              isDense: true,
+              isDense: true
             ),
             textAlignVertical: TextAlignVertical.bottom,
+            onChanged: (text){
+              var prov = Provider.of<Proveedor>(context,listen: false);
+              prov.setPass(text);
+            } ,
           ),
         ],
       ),

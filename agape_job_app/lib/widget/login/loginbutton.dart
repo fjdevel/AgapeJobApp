@@ -1,13 +1,14 @@
+import 'dart:developer';
+
+import 'package:agape_job_app/services/provider.dart';
 import 'package:agape_job_app/util/colors.dart';
 import 'package:agape_job_app/util/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 class LoginButton extends StatefulWidget {
-  final TextEditingController passwordController,emailController;
-
-  const LoginButton(this.passwordController,this.emailController);
   @override
   _LoginButtonState createState() => _LoginButtonState();
 }
@@ -22,14 +23,20 @@ class _LoginButtonState extends State<LoginButton> {
       width: size.width * 0.85,
       child: RaisedButton(
         onPressed: ()async{
-          var url = Uri.http('192.168.1.4','/jeo/servicios/seguridad/inicio_de_sesion.php');
-          var response = await http.post(url,body: {"email":widget.emailController.text,"password":widget.passwordController.text});
-          if(response.statusCode==200){
-            Navigator.of(context).pushNamed("/inicio");
+          var prov = Provider.of<Proveedor>(this.context,listen: false);
+          if(prov.EMAIL.isNotEmpty&&prov.PASS.isNotEmpty){
+            var url = Uri.http('agape-jobws.000webhostapp.com','/servicios/seguridad/inicio_de_sesion.php');
+            var response = await http.post(url,body: {"email":prov.EMAIL,"password":prov.PASS});
+            if(response.statusCode==200){
+              Navigator.of(context).pushNamed("/inicio");
+            }else{
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(response.body),
+                duration: Duration(seconds: 3),));
+            }
           }else{
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(response.body),
-            duration: Duration(seconds: 3),));
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Necesita ingresar sus credenciales adecuadamente")));
           }
+
 
         },
         padding: EdgeInsets.all(20),

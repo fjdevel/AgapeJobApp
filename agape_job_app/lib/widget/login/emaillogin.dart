@@ -1,9 +1,12 @@
+import 'dart:developer';
+
+import 'package:agape_job_app/services/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
-class EmailLogin extends StatefulWidget {
-  final TextEditingController controller;
-  const EmailLogin(this.controller);
+class EmailLogin extends StatefulWidget{
+
 
   @override
   _EmailLoginState createState() => _EmailLoginState();
@@ -11,6 +14,8 @@ class EmailLogin extends StatefulWidget {
 }
 
 class _EmailLoginState extends State<EmailLogin> {
+
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -50,7 +55,6 @@ class _EmailLoginState extends State<EmailLogin> {
               )
           ),
           TextField(
-            controller: widget.controller,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
               border: InputBorder.none,
@@ -60,9 +64,16 @@ class _EmailLoginState extends State<EmailLogin> {
               isDense: true,
             ),
             textAlignVertical: TextAlignVertical.bottom,
+            onChanged: (text){
+                var prov = Provider.of<Proveedor>(context,listen: false);
+                prov.setEmail(text);
+            },
           ),
         ],
       ),
     );
   }
+
 }
+
+

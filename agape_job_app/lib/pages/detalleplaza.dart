@@ -16,7 +16,7 @@ class _DetallePlazaState extends State<DetallePlaza> {
     return Scaffold(
       backgroundColor: dPrimaryColor,
       key: _scaffoldKey,
-      appBar: DPlazaBar(),
+      appBar: DPlazaBar("nombre plaza"),
       body: Container(
         margin: EdgeInsets.only(top: 20),
         decoration: BoxDecoration(
