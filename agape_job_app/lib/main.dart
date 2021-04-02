@@ -1,10 +1,24 @@
 import 'package:agape_job_app/pages/busqueda.dart';
 import 'package:agape_job_app/pages/iniciopage.dart';
 import 'package:agape_job_app/pages/login.dart';
+import 'package:agape_job_app/pages/profile.dart';
+import 'package:agape_job_app/services/provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(MyApp());
+Future<void> main() async {
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
+    // Retrieve the device cameras
+  }  catch (e) {
+    print(e);
+  }
+  runApp(
+      ChangeNotifierProvider(
+        create: (_)=>Proveedor(),
+        child: MyApp(),
+      )
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -18,6 +32,7 @@ class MyApp extends StatelessWidget {
       routes: <String,WidgetBuilder>{
         "/login":(BuildContext context)=>LoginScreen(),
         "/inicio":(BuildContext context)=>InicioPage(),
+        "/perfil":(BuildContext context)=>Profile(),
       },
       home: LoginScreen(),
     );

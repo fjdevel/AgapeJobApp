@@ -21,7 +21,9 @@ class _DrawerInicioState extends State<DrawerInicio> {
           ),
           Container(
             margin: EdgeInsets.only(top:50),
-            child: ListTile(title: Text("Perfil",style: TextStyle(fontSize: 30,fontWeight: FontWeight.w400),),),
+            child: ListTile(title: Text("Perfil",style: TextStyle(fontSize: 30,fontWeight: FontWeight.w400),),
+              onTap:(){ Navigator.of(context).pushNamed("/perfil");}
+              ,),
           ),
           Container(
             margin: EdgeInsets.only(top:50),
