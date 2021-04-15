@@ -1,1 +1,1 @@
-var dominio = 'agape-jobws.000webhostapp.com';
+var dominio = 'desarrollo.trabajoseguro.org.sv';

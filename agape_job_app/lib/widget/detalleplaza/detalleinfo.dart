@@ -4,11 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 class DetalleInfo extends StatefulWidget {
+  dynamic job;
+
+
+  DetalleInfo(this.job);
+
   @override
-  _DetalleInfoState createState() => _DetalleInfoState();
+  _DetalleInfoState createState() => _DetalleInfoState(this.job);
 }
 
 class _DetalleInfoState extends State<DetalleInfo> {
+  dynamic _job;
+
+
+  _DetalleInfoState(this._job);
 
   @override
   Widget build(BuildContext context) {
@@ -36,22 +45,22 @@ class _DetalleInfoState extends State<DetalleInfo> {
                         elevation: 0.0,
                         minWidth: 110,
                         height: 50,
-                        child: Text("Compañía",
+                        child: Text(_job['razon_social'],
                             style: TextStyle(color: Colors.white)),
                         onPressed: () => null,),
                     ),
-                    Container(
-                      padding: EdgeInsets.only(left: 10.0),
-                      child: MaterialButton(
-                        color: dPrimaryColor,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                        elevation: 0.0,
-                        minWidth: 110,
-                        height: 50,
-                        child: Text("Reseñas",
-                            style: TextStyle(color: Colors.white)),
-                        onPressed: () => null,),
-                    )
+                    // Container(
+                    //   padding: EdgeInsets.only(left: 10.0),
+                    //   child: MaterialButton(
+                    //     color: dPrimaryColor,
+                    //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                    //     elevation: 0.0,
+                    //     minWidth: 110,
+                    //     height: 50,
+                    //     child: Text("Reseñas",
+                    //         style: TextStyle(color: Colors.white)),
+                    //     onPressed: () => null,),
+                    // )
                   ],
                 ),
               ),
@@ -70,7 +79,7 @@ class _DetalleInfoState extends State<DetalleInfo> {
                   fontSize: 25,
                 ),
               ),
-              DetalleLista()
+              DetalleLista(_job)
             ],
           ),
         )

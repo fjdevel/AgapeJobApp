@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 
 class Proveedor with ChangeNotifier{
-  String _usr="",_EMAIL="",_PASS="";
+  String _usr="",_EMAIL="",_PASS="",_idEstudiante="";
   String get usr =>_usr;
+  String get idEstudiante =>_idEstudiante;
+
+  set idEstudiante(String value){
+    _idEstudiante = value;
+    notifyListeners();
+  }
+
+
   set usr(String value){
     _usr = value;
     notifyListeners();

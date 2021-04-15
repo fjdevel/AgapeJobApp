@@ -5,18 +5,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 class DetallePlaza extends StatefulWidget {
+  dynamic job;
+
+  DetallePlaza(this.job);
+
   @override
-  _DetallePlazaState createState() => _DetallePlazaState();
+  _DetallePlazaState createState() => _DetallePlazaState(this.job);
 }
 
 class _DetallePlazaState extends State<DetallePlaza> {
+  dynamic job;
+
+  _DetallePlazaState(this.job);
+
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: dPrimaryColor,
       key: _scaffoldKey,
-      appBar: DPlazaBar("nombre plaza"),
+      appBar: DPlazaBar(job["descripcion"]),
       body: Container(
         margin: EdgeInsets.only(top: 20),
         decoration: BoxDecoration(
@@ -30,7 +38,7 @@ class _DetallePlazaState extends State<DetallePlaza> {
         width: double.infinity,
         child: Column(
           children: <Widget>[
-            DetalleBody()
+            DetalleBody(job)
           ],
         ),
       ),

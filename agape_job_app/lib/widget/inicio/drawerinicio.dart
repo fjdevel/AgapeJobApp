@@ -13,11 +13,17 @@ class _DrawerInicioState extends State<DrawerInicio> {
         children: [
           Container(
             margin: EdgeInsets.only(top:50),
-            child: ListTile(title: Text("Trabajos",style: TextStyle(fontSize: 30,fontWeight: FontWeight.w400),),),
+            child: ListTile(title: Text("Trabajos",style: TextStyle(fontSize: 30,fontWeight: FontWeight.w400),),
+              onTap:(){
+                Navigator.of(context).popAndPushNamed("/inicio");
+
+            },),
           ),
           Container(
             margin: EdgeInsets.only(top:50),
-            child: ListTile(title: Text("Aplicaciones",style: TextStyle(fontSize: 30,fontWeight: FontWeight.w400),),),
+            child: ListTile(title: Text("Aplicaciones",style: TextStyle(fontSize: 30,fontWeight: FontWeight.w400),),onTap: (){
+              Navigator.of(context).popAndPushNamed("/aplicaciones");
+            },),
           ),
           Container(
             margin: EdgeInsets.only(top:50),

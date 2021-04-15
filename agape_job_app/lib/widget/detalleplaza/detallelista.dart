@@ -2,11 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 class DetalleLista extends StatelessWidget {
+  dynamic job;
 
-  final List<String> entradas = <String>['Requisito 1', 'Requisito 2', 'Requisito 3', 'Requisito 4', 'Requisito 5', 'Requisito N'];
+
+  DetalleLista(this.job);
+
+
 
   @override
   Widget build(BuildContext context) {
+    final List<String> entradas = <String>['Descripcion: '+this.job['descripcion'],
+    this.job['es_urgente']==1?"Urgente: SI":"Urgente : NO",
+      this.job['funciones_plaza']==null?"Funciones de la plaza: No especifica":"Funciones de la plaza"+this.job['funciones_plaza'],
+      (this.job['disponibilidad_viajar']==null||this.job['disponibilidad_viajar']=='0')?"Disponibilidad de viajar: No especifica":"Disponibiliad de viajar: "+this.job['disponibilidad_viajar'],
+      (this.job['experiencia_laboral']==null||this.job['experiencia_laboral']=='0')?"Experiencia laboral: No especifica":"Experiencia Laboral: "+this.job['experiencia_laboral'],
+      "Cantidad: "+this.job['cantidad']
+
+    ];
     return SizedBox(
       height: 150,
       child: ListView.builder(

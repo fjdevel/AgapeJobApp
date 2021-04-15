@@ -1,4 +1,5 @@
 import 'package:agape_job_app/pages/detalleplaza.dart';
+import 'package:agape_job_app/pages/register.dart';
 import 'package:agape_job_app/util/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,7 +15,7 @@ class _SingUpLoginState extends State<SingUpLogin> {
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => DetallePlaza()));
+        Navigator.of(context).pushNamed("/registro");
       },
       child: RichText(
         text: TextSpan(children: [

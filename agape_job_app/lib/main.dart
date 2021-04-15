@@ -1,7 +1,9 @@
+import 'package:agape_job_app/pages/aplicaciones.dart';
 import 'package:agape_job_app/pages/busqueda.dart';
 import 'package:agape_job_app/pages/iniciopage.dart';
 import 'package:agape_job_app/pages/login.dart';
 import 'package:agape_job_app/pages/profile.dart';
+import 'package:agape_job_app/pages/register.dart';
 import 'package:agape_job_app/services/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -33,6 +35,9 @@ class MyApp extends StatelessWidget {
         "/login":(BuildContext context)=>LoginScreen(),
         "/inicio":(BuildContext context)=>InicioPage(),
         "/perfil":(BuildContext context)=>Profile(),
+        "/registro":(BuildContext context)=>RegisterPage(),
+        "/aplicaciones":(BuildContext context)=>Aplicaciones()
+
       },
       home: LoginScreen(),
     );

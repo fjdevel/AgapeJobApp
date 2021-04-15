@@ -14,7 +14,7 @@ class MenuBar extends StatelessWidget implements PreferredSizeWidget{
     return AppBar(title: Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        IconButton(onPressed: () {
+        /*IconButton(onPressed: () {
           showGeneralDialog(
               context: context,
               barrierDismissible: true,
@@ -25,8 +25,8 @@ class MenuBar extends StatelessWidget implements PreferredSizeWidget{
               }
           );
         },
-            icon: Icon(Icons.search,color: Colors.black,)),
-        IconButton(icon:Icon(Icons.tune,color: Colors.black,))
+            icon: Icon(Icons.search,color: Colors.black,)),*/
+        //IconButton(icon:Icon(Icons.tune,color: Colors.black,))
       ],
     )
       ,backgroundColor: dSecundaryColor  ,
