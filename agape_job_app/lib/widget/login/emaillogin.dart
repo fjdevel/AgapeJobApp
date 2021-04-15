@@ -20,9 +20,7 @@ class _EmailLoginState extends State<EmailLogin> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      margin: EdgeInsets.only(
-          top: size.height*0.06
-      ),
+      margin: EdgeInsets.only(top: size.height*0.06),
       width: size.width * 0.85,
       decoration: BoxDecoration(
           color: Colors.white,
@@ -44,10 +42,7 @@ class _EmailLoginState extends State<EmailLogin> {
       child: Stack(
         children: [
           Container(
-              margin: EdgeInsets.only(
-                  left: 20,
-                  top: 10
-              ),
+              margin: EdgeInsets.only(left: 20, top: 10),
               padding: EdgeInsets.only(top: 2),
               child: Text(
                 "Correo Electrónico",
