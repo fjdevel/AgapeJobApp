@@ -1,8 +1,15 @@
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:agape_job_app/services/provider.dart';
 import 'package:agape_job_app/util/colors.dart';
+import 'package:agape_job_app/util/globals.dart';
 import 'package:agape_job_app/widget/common/dplazabar.dart';
 import 'package:agape_job_app/widget/perfil/textinfo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -10,9 +17,44 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  dynamic profile=null,cursos;
+  List tec=[];
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    var prov = Provider.of<Proveedor>(this.context,listen: false);
+    var url = Uri.http(dominio.toString(),'/jeo/servicios/consultar_perfil.php',{"id":prov.idEstudiante});
+    var urlcurso = Uri.http(dominio.toString(),'/jeo/servicios/consultar_capacitaciones.php',{"idEstudiante":prov.idEstudiante});
+    var urlcomp = Uri.http(dominio.toString(),'/jeo/servicios/consultar_compentencia_tecnica.php',{"id":prov.idEstudiante});
+    var response2 = http.get(urlcomp);
+
+    var response1 = http.get(urlcurso);
+    var response = http.get(url);
+    response.then((value) {
+      setState(() {
+        profile = jsonDecode(value.body);
+      });
+    });
+    response1.then((re) {
+      setState(() {
+        if(re.body.isNotEmpty){
+          cursos = jsonDecode(re.body);
+        }else{
+          cursos = "";
+        }
+      });
+    });
+    response2.then((value) {
+      setState(() {
+        if(value.body.isNotEmpty){
+        }else{
+          tec = [];
+        }
+      });
+    });
+
+    if(profile!=null&&cursos!=null)
     return Scaffold(
       backgroundColor: dPrimaryColor,
       appBar: DPlazaBar("Mi Perfil"),
@@ -42,16 +84,12 @@ class _ProfileState extends State<Profile> {
                       // ),
                       Container(
                         margin: EdgeInsets.only(top: size.height*0.02),
-                        child: Text("Teresa Perez",style: TextStyle(fontSize: 30,),),
+                        child: Text(profile[0]["p_nombre"]+" "+profile[0]["p_apellido"],style: TextStyle(fontSize: 30,),),
                       ),
                       Container(
                         margin: EdgeInsets.only(top: size.height*0.01),
-                        child: Text("San Salvador, El Salvador",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w200),),
+                        child: Text(profile[0]["email"],style: TextStyle(fontSize: 15,fontWeight: FontWeight.w200),),
                       ),
-                      Container(
-                    margin: EdgeInsets.only(top: size.height*0.01),
-                    child: Text("Diseñadora Grafica",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w400),),
-                  ),
                       Divider(
                         color: Colors.grey,
                         indent: 20,
@@ -76,18 +114,18 @@ class _ProfileState extends State<Profile> {
                                         child: Center(
                                           child: Text("Datos de identificacion",
                                             style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),),),
-                                      TextInfo("Carnet:","PP12312"),
-                                      TextInfo("Sexo:","Femenino"),
-                                      TextInfo("Genero:","Gay"),
-                                      TextInfo("Fecha de nacimiento:", "12/02/87"),
-                                      TextInfo("Estado Civel:","Casada"),
-                                      TextInfo("Dui:", "09123121-0"),
-                                      TextInfo("Nit:", "2312-1231231-123-1"),
-                                      TextInfo("Departamento:", "San Salvador"),
-                                      TextInfo("Municipio:", "San Salvador"),
-                                      TextInfo("Direccion", "adhasd sahdasiudha dsahgdashasd adha dasdhaskjd dahsadjhasd adhas"),
-                                      TextInfo("Numero Celular", "78312111"),
-                                      TextInfo("Numero Fijo", "22122111"),
+                                      TextInfo("Carnet:",(profile[0]["carnet"]==0?"no existe informacion":profile[0]["carnet"].toString())),
+                                      TextInfo("Sexo:",profile[0]["sexo"]=="M"?"Masculino":"Femenino"),
+                                      TextInfo("Genero:",profile[0]["id_genero"]["descripcion"]),
+                                      TextInfo("Fecha de nacimiento:", profile[0]["fecha_nacimiento"]),
+                                      TextInfo("Estado Civel:",profile[0]["id_est_civil"]["descripcion"]),
+                                      TextInfo("Dui:", profile[0]["dui"]),
+                                      TextInfo("Nit:", profile[0]["nit"]),
+                                      TextInfo("Departamento:", profile[0]["id_depto"]["descripcion"]),
+                                      TextInfo("Municipio:", profile[0]["id_muni"]["descripcion"]),
+                                      TextInfo("Direccion",profile[0]["direccion"]),
+                                      TextInfo("Numero Celular", profile[0]["num_celular"]),
+                                      TextInfo("Numero Fijo", profile[0]["num_fijo"]),
                                     ],
                                   ),
                                 ),
@@ -105,18 +143,7 @@ class _ProfileState extends State<Profile> {
                                         child: Center(
                                           child: Text("Capacitaciones Recibidas",
                                             style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),),),
-                                      TextInfo("Carnet:","PP12312"),
-                                      TextInfo("Sexo:","Femenino"),
-                                      TextInfo("Genero:","Gay"),
-                                      TextInfo("Fecha de nacimiento:", "12/02/87"),
-                                      TextInfo("Estado Civel:","Casada"),
-                                      TextInfo("Dui:", "09123121-0"),
-                                      TextInfo("Nit:", "2312-1231231-123-1"),
-                                      TextInfo("Departamento:", "San Salvador"),
-                                      TextInfo("Municipio:", "San Salvador"),
-                                      TextInfo("Direccion", "adhasd sahdasiudha dsahgdashasd adha dasdhaskjd dahsadjhasd adhas"),
-                                      TextInfo("Numero Celular", "78312111"),
-                                      TextInfo("Numero Fijo", "22122111"),
+                                      cursos.toString()!=""?TextInfo("Capacitacion recibida: ",cursos[0]["curso"]["descripcion"]):Text("No ha recibido capacitaciones"),
                                     ],
                                   ),
                                 ),
@@ -134,18 +161,7 @@ class _ProfileState extends State<Profile> {
                                         child: Center(
                                           child: Text("Capacitaciones Tecnicas",
                                             style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),),),
-                                      TextInfo("Carnet:","PP12312"),
-                                      TextInfo("Sexo:","Femenino"),
-                                      TextInfo("Genero:","Gay"),
-                                      TextInfo("Fecha de nacimiento:", "12/02/87"),
-                                      TextInfo("Estado Civel:","Casada"),
-                                      TextInfo("Dui:", "09123121-0"),
-                                      TextInfo("Nit:", "2312-1231231-123-1"),
-                                      TextInfo("Departamento:", "San Salvador"),
-                                      TextInfo("Municipio:", "San Salvador"),
-                                      TextInfo("Direccion", "adhasd sahdasiudha dsahgdashasd adha dasdhaskjd dahsadjhasd adhas"),
-                                      TextInfo("Numero Celular", "78312111"),
-                                      TextInfo("Numero Fijo", "22122111"),
+                                          if(tec.isNotEmpty)for(var e in tec) Text(e["descripcion"])else Text("no se encontro informacion")
                                     ],
                                   ),
                                 ),
@@ -163,18 +179,7 @@ class _ProfileState extends State<Profile> {
                                         child: Center(
                                           child: Text("Discapacidades",
                                             style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),),),
-                                      TextInfo("Carnet:","PP12312"),
-                                      TextInfo("Sexo:","Femenino"),
-                                      TextInfo("Genero:","Gay"),
-                                      TextInfo("Fecha de nacimiento:", "12/02/87"),
-                                      TextInfo("Estado Civel:","Casada"),
-                                      TextInfo("Dui:", "09123121-0"),
-                                      TextInfo("Nit:", "2312-1231231-123-1"),
-                                      TextInfo("Departamento:", "San Salvador"),
-                                      TextInfo("Municipio:", "San Salvador"),
-                                      TextInfo("Direccion", "adhasd sahdasiudha dsahgdashasd adha dasdhaskjd dahsadjhasd adhas"),
-                                      TextInfo("Numero Celular", "78312111"),
-                                      TextInfo("Numero Fijo", "22122111"),
+                                      TextInfo("Discapacidades:","No se encontraron"),
                                     ],
                                   ),
                                 ),
@@ -194,7 +199,9 @@ class _ProfileState extends State<Profile> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            ElevatedButton.icon(onPressed: ()=>{}, label: Text("Editar"),icon: Icon(Icons.edit),),
+                            ElevatedButton.icon(onPressed: ()=>{
+                              Navigator.of(context).pushNamed("/editarPerfil")
+                            }, label: Text("Editar"),icon: Icon(Icons.edit),),
                             ElevatedButton.icon(onPressed: ()=>{}, label: Text("Descargar cv"), icon:Icon(Icons.download_outlined),)
                           ],
                         ),
@@ -210,5 +217,11 @@ class _ProfileState extends State<Profile> {
         ),
       ),
     );
+    else
+      return Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
   }
 }

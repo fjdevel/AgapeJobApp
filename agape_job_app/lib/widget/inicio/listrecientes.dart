@@ -24,8 +24,9 @@ class _ListRecientesState extends State<ListRecientes> {
     var response = http.get(url);
     response.then((value) {
       setState(() {
+        if(value.body.isNotEmpty||value.body!=""){
         listPl = jsonDecode(value.body);
-        listPl.removeRange(0, 2);
+        listPl.removeRange(0, 2);}
       });
     });
     return Container(

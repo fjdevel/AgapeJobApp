@@ -1,3 +1,4 @@
+import 'package:agape_job_app/util/colors.dart';
 import 'package:agape_job_app/widget/editprofile/btneditprofile.dart';
 import 'package:agape_job_app/widget/editprofile/chkgraduado.dart';
 import 'package:agape_job_app/widget/editprofile/droptextfields.dart';
@@ -14,6 +15,7 @@ class FormularioIngreso extends StatelessWidget {
     return Scaffold(
       key: _scaffoldkey,
       appBar: AppBar(
+        backgroundColor: dPrimaryColor,
         title: Text(' '),
       ),
       body: Container(

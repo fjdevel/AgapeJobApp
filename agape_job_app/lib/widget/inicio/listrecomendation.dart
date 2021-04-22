@@ -26,7 +26,9 @@ class _ListRecomendationState extends State<ListRecomendation> {
     var response = http.get(url);
     response.then((value) {
       setState(() {
-        listPl = jsonDecode(value.body);
+        if(value.body.isNotEmpty || value.body!=""){
+          listPl = jsonDecode(value.body);
+        }
       });
     });
     return Container(
