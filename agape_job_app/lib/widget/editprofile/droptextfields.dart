@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 
 class DropDownText extends StatefulWidget {
   String hint;
+  String value;
   List<String> items;
+
+
   DropDownText(this.hint, this.items);
+
   @override
   _DropDownTextState createState() => _DropDownTextState();
 }
@@ -44,6 +48,7 @@ class _DropDownTextState extends State<DropDownText> {
             onChanged: (String value) {
               setState(() {
                 _chosenValue = value;
+                widget.value = value;
               });
             },
           ),

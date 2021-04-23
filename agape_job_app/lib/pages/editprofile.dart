@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:agape_job_app/util/colors.dart';
 import 'package:agape_job_app/util/globals.dart';
@@ -22,7 +23,7 @@ class FormularioIngreso extends StatefulWidget {
 class _FormularioIngreso extends State<FormularioIngreso>{
   final _scaffoldkey = GlobalKey<ScaffoldState>();
   List<String> departamentos= [""];
-
+  var nombreCon,seguCon,tercerCon,apellCon,segApCon,apellCasaCon,duiCon,nitCon,dirCon,numCon,numFijoCon,emailCon = TextEditingController();
 
   @override
   void initState() {
@@ -62,7 +63,31 @@ class _FormularioIngreso extends State<FormularioIngreso>{
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Texto('Primer Nombre'),
-                TextFields('| PRIMER NOMBRE'),
+                Container(
+                    width: size.width *0.85,
+                    margin: EdgeInsets.only(top: 5.0),
+                    height: 40.0,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(width: 1, color: Colors.white, style: BorderStyle.solid),
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [ BoxShadow(
+                            color: Colors.black26,
+                            offset: const Offset(0.0, 3.0),
+                            blurRadius: 1.2,
+                            spreadRadius: 0.5
+                        )
+                        ]
+                    ),
+                    child: TextField(
+                      decoration: InputDecoration(
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
+                          hintText: '| PRIMER NOMBRE'
+                      ),
+                      controller: nombreCon,
+                    )
+                ),
                 Texto('Segundo Nombre'),
                 TextFields('| SEGUNDO NOMBRE'),
                 Texto('Tercer Nombre'),
@@ -116,7 +141,7 @@ class _FormularioIngreso extends State<FormularioIngreso>{
                       ),
                     ),
                     onPressed: (){
-                      log()
+                      log(nombreCon.text);
                     },
                   ),
                 )
