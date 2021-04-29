@@ -8,6 +8,8 @@ import 'package:agape_job_app/widget/login/singuplogin.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'logo.dart';
+
 class FormLogin extends StatefulWidget {
   @override
   _FormLoginState createState() => _FormLoginState();
@@ -39,7 +41,10 @@ class _FormLoginState extends State<FormLogin> {
             EmailLogin(),
             PasswordLogin(),
             LoginButton(),
-            SingUpLogin()
+            SingUpLogin(),
+            Center(
+              child: Logo(),
+            )
           ],
         ),
       ),

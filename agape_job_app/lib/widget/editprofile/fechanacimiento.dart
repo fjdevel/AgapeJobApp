@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 class FechaNacimiento extends StatefulWidget {
+  DateTime currentDate = DateTime.now();
   @override
   _FechaNacimientoState createState() => _FechaNacimientoState();
 }
 
 class _FechaNacimientoState extends State<FechaNacimiento> {
 
-  DateTime currentDate = DateTime.now();
+
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime pickedDate = await showDatePicker(
@@ -17,12 +18,12 @@ class _FechaNacimientoState extends State<FechaNacimiento> {
         fieldLabelText: 'Ingresar Fecha',
         context: context,
         initialDatePickerMode: DatePickerMode.day,
-        initialDate: currentDate,
+        initialDate: widget.currentDate,
         firstDate: DateTime(1975),
         lastDate: DateTime(2050));
-    if (pickedDate != null && pickedDate != currentDate)
+    if (pickedDate != null && pickedDate != widget.currentDate)
       setState(() {
-        currentDate = pickedDate;
+        widget.currentDate = pickedDate;
       });
   }
 
@@ -50,7 +51,7 @@ class _FechaNacimientoState extends State<FechaNacimiento> {
         children: <Widget>[
           Expanded(
               child: Text(
-                  "${currentDate.day.toString()}-${currentDate.month.toString()}-${currentDate.year.toString()}")
+                  "${widget.currentDate.day.toString()}-${widget.currentDate.month.toString()}-${widget.currentDate.year.toString()}")
           ),
           IconButton(icon: Icon(
               Icons.calendar_today),

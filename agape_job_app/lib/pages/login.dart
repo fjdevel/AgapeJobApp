@@ -18,14 +18,13 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       key: _scaffoldKey,
-      backgroundColor: dPrimaryColor,
+      backgroundColor: dSecundaryColor,
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Center(
-              child: Logo(),
-            ),
+
             FormLogin(),
+
           ],
         ),
       ),

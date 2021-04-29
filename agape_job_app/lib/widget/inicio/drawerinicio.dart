@@ -13,7 +13,13 @@ class _DrawerInicioState extends State<DrawerInicio> {
         children: [
           Container(
             margin: EdgeInsets.only(top:50),
-            child: ListTile(title: Text("Trabajos",style: TextStyle(fontSize: 30,fontWeight: FontWeight.w400),),
+            child: ListTile(title:
+              Row (
+                children: [
+                  Text("Trabajos",style: TextStyle(fontSize: 30,fontWeight: FontWeight.w400),),
+                  TextButton.icon(onPressed: ()=>{}, icon: Icon(Icons.work,color: Colors.black,),label: Text(""),)
+                ],
+              ),
               onTap:(){
                 Navigator.of(context).popAndPushNamed("/inicio");
 

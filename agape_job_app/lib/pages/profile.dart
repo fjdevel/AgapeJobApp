@@ -98,12 +98,13 @@ class _ProfileState extends State<Profile> {
                       ),
                       Container(
                         width: size.width*0.9,
-                        height: size.height*0.5,
+                        height: size.height*0.6,
                         child: ListView(
                           scrollDirection: Axis.horizontal,
                           children: [
                             Container(
                               margin: EdgeInsets.only(top: size.height*0.02,left: size.width*0.01,right: size.width*0.01),
+                              padding: EdgeInsets.only(left: 5,right: 5),
                               child: SingleChildScrollView(
                                 child: Card(
                                   elevation: 5,
@@ -112,22 +113,164 @@ class _ProfileState extends State<Profile> {
                                       Container(
                                         margin: EdgeInsets.only(bottom: size.height*0.015),
                                         child: Center(
-                                          child: Text("Datos de identificacion",
+                                          child: Text("Datos de identificación",
                                             style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),),),
-                                      TextInfo("Carnet:",(profile[0]["carnet"]==0?"no existe informacion":profile[0]["carnet"].toString())),
-                                      TextInfo("Sexo:",profile[0]["sexo"]=="M"?"Masculino":"Femenino"),
-                                      TextInfo("Genero:",profile[0]["id_genero"]["descripcion"]),
-                                      TextInfo("Fecha de nacimiento:", profile[0]["fecha_nacimiento"]),
-                                      TextInfo("Estado Civel:",profile[0]["id_est_civil"]["descripcion"]),
-                                      TextInfo("Dui:", profile[0]["dui"]),
-                                      TextInfo("Nit:", profile[0]["nit"]),
-                                      TextInfo("Departamento:", profile[0]["id_depto"]["descripcion"]),
-                                      TextInfo("Municipio:", profile[0]["id_muni"]["descripcion"]),
-                                      TextInfo("Direccion",profile[0]["direccion"]),
-                                      TextInfo("Numero Celular", profile[0]["num_celular"]),
-                                      TextInfo("Numero Fijo", profile[0]["num_fijo"]),
+                                      Container(
+                                        width: size.width*0.8,
+                                        margin: EdgeInsets.only(bottom: 10,left: 8,right: 8),
+                                        child:
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [Icon(Icons.account_circle),
+                                                Text("Carnet: ",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold))],
+                                            ),
+                                            Text((profile[0]["carnet"]==0?"no existe informacion":profile[0]["carnet"].toString()))
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        width: size.width*0.8,
+                                        margin: EdgeInsets.only(bottom: 10,left:8),
+                                        child:
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("Sexo: ",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+                                            Text(profile[0]["sexo"]=="M"?"Mujer":"Hombre")
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        width: size.width*0.8,
+                                        margin: EdgeInsets.only(bottom: 10,left:8),
+                                        child:
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("Fecha de nacimiento: ",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+                                            Text(profile[0]["fecha_nacimiento"])
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        width: size.width*0.8,
+                                        margin: EdgeInsets.only(bottom: 10),
+                                        child:
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("Estado Civíl:",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+                                            Text(profile[0]["id_est_civil"]["descripcion"])
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        width: size.width*0.8,
+                                        margin: EdgeInsets.only(bottom: 10),
+                                        child:
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("DUI:",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+                                            Text(profile[0]["dui"])
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        width: size.width*0.8,
+                                        margin: EdgeInsets.only(bottom: 10),
+                                        child:
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("NIT:",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+                                            Text(profile[0]["nit"])
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        width: size.width*0.8,
+                                        margin: EdgeInsets.only(bottom: 10),
+                                        child:
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("Género:",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+                                            Text(profile[0]["id_genero"]["descripcion"])
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        width: size.width*0.8,
+                                        margin: EdgeInsets.only(bottom: 10),
+                                        child:
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("Departamento:",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+                                            Text(profile[0]["id_depto"]["descripcion"])
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        width: size.width*0.8,
+                                        margin: EdgeInsets.only(bottom: 10),
+                                        child:
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("Municipio:",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+                                            Text(profile[0]["id_muni"]["descripcion"])
+                                          ],
+                                        ),
+                                      ),
+
+                                      Container(
+                                        width: size.width*0.8,
+                                        margin: EdgeInsets.only(bottom: 10),
+                                        child:
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("Número Celular",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+                                            Text(profile[0]["num_celular"])
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        width: size.width*0.8,
+                                        margin: EdgeInsets.only(bottom: 10),
+                                        child:
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text("Número Fijo",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+                                            Text(profile[0]["num_fijo"])
+                                          ],
+                                        ),
+                                      ),
+                                      Text("Dirección: ",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+                                      Container(
+                                        width: size.width*0.75,
+                                        child: Text(profile[0]["direccion"],textAlign: TextAlign.justify,maxLines: 10,overflow: TextOverflow.ellipsis,),
+                                      ),
+                                  Container(
+                                        margin: EdgeInsets.only(top: size.height*0.01,bottom: size.height*0.01),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          children: [
+                                            ElevatedButton.icon(onPressed: ()=>{
+                                              Navigator.of(context).pushNamed("/editarPerfil")
+                                            }, label: Text("Editar"),icon: Icon(Icons.edit),),
+                                            //ElevatedButton.icon(onPressed: ()=>{}, label: Text("Descargar cv"), icon:Icon(Icons.download_outlined),)
+                                          ],
+                                        ),
+                                      )
                                     ],
                                   ),
+
                                 ),
                               ),
                             ),
@@ -143,7 +286,7 @@ class _ProfileState extends State<Profile> {
                                         child: Center(
                                           child: Text("Capacitaciones Recibidas",
                                             style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),),),
-                                      cursos.toString()!=""?TextInfo("Capacitacion recibida: ",cursos[0]["curso"]["descripcion"]):Text("No ha recibido capacitaciones"),
+                                      cursos.toString()!=""&&cursos[0]["curso"]!=null?TextInfo("Capacitacion recibida: ",cursos[0]["curso"]["descripcion"]):Text("No ha recibido capacitaciones"),
                                     ],
                                   ),
                                 ),
@@ -194,18 +337,7 @@ class _ProfileState extends State<Profile> {
                         endIndent: 20,
                         thickness: 1.5,
                       ),
-                      Container(
-                        margin: EdgeInsets.only(top: size.height*0.01,bottom: size.height*0.01),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            ElevatedButton.icon(onPressed: ()=>{
-                              Navigator.of(context).pushNamed("/editarPerfil")
-                            }, label: Text("Editar"),icon: Icon(Icons.edit),),
-                            ElevatedButton.icon(onPressed: ()=>{}, label: Text("Descargar cv"), icon:Icon(Icons.download_outlined),)
-                          ],
-                        ),
-                      )
+
                     ],
                   ),
                 ),

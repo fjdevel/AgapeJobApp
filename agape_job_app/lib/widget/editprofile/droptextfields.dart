@@ -4,8 +4,6 @@ class DropDownText extends StatefulWidget {
   String hint;
   String value;
   List<String> items;
-
-
   DropDownText(this.hint, this.items);
 
   @override
