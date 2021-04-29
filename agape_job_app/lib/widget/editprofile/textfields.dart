@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class TextFields extends StatefulWidget {
   String hint;
-  TextFields (this.hint);
+  IconData icono;
+  TextFields (this.hint, this.icono);
   @override
   _TextFieldsState createState() => _TextFieldsState();
 }
@@ -31,7 +32,9 @@ class _TextFieldsState extends State<TextFields> {
           decoration: InputDecoration(
               border: InputBorder.none,
               contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-              hintText: widget.hint
+              hintText: widget.hint,
+            suffixIcon: null == widget.icono ? null : Icon(widget.icono),
+            suffixIconConstraints: BoxConstraints(minWidth: 40),
           ),
         )
     );

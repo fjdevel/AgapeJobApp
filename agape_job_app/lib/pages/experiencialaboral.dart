@@ -53,7 +53,9 @@ class _ExperienciaLaboralState extends State<ExperienciaLaboral> {
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                            hintText: '| Cargo'
+                            hintText: '| Cargo',
+                            suffixIcon: Icon(Icons.assignment_ind),
+                            suffixIconConstraints: BoxConstraints(minWidth: 40)
                         ),
                       )
                   ),
@@ -85,7 +87,9 @@ class _ExperienciaLaboralState extends State<ExperienciaLaboral> {
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                            hintText: '| Fecha Inicio'
+                            hintText: '| Fecha Inicio',
+                            suffixIcon: Icon(Icons.calendar_today),
+                            suffixIconConstraints: BoxConstraints(minWidth: 40)
                         ),
                       )
                   ),
@@ -117,7 +121,9 @@ class _ExperienciaLaboralState extends State<ExperienciaLaboral> {
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                            hintText: '| Fecha Fin'
+                            hintText: '| Fecha Fin',
+                            suffixIcon: Icon(Icons.calendar_today),
+                            suffixIconConstraints: BoxConstraints(minWidth: 40)
                         ),
                       )
                   ),
@@ -148,7 +154,9 @@ class _ExperienciaLaboralState extends State<ExperienciaLaboral> {
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                            hintText: '| Funciones'
+                            hintText: '| Funciones',
+                            suffixIcon: Icon(Icons.assignment),
+                            suffixIconConstraints: BoxConstraints(minWidth: 40)
                         ),
                       )
                   ),
@@ -179,7 +187,9 @@ class _ExperienciaLaboralState extends State<ExperienciaLaboral> {
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                            hintText: '| Nombre de la Empresa'
+                            hintText: '| Nombre de la Empresa',
+                            suffixIcon: Icon(Icons.business_center),
+                            suffixIconConstraints: BoxConstraints(minWidth: 40)
                         ),
                       )
                   ),
@@ -210,7 +220,9 @@ class _ExperienciaLaboralState extends State<ExperienciaLaboral> {
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                            hintText: '| Nombre del Jefe'
+                            hintText: '| Nombre del Jefe',
+                            suffixIcon: Icon(Icons.account_circle),
+                            suffixIconConstraints: BoxConstraints(minWidth: 40)
                         ),
                       )
                   ),

@@ -54,7 +54,9 @@ class _CapacitacionesRState extends State<CapacitacionesR> {
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                            hintText: '| Fecha de Finalización'
+                            hintText: '| Fecha de Finalización',
+                            suffixIcon: Icon(Icons.calendar_today),
+                            suffixIconConstraints: BoxConstraints(minWidth: 40)
                         ),
                       )
                   ),
@@ -85,7 +87,9 @@ class _CapacitacionesRState extends State<CapacitacionesR> {
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                            hintText: '| Institución'
+                            hintText: '| Institución',
+                            suffixIcon: Icon(Icons.school),
+                            suffixIconConstraints: BoxConstraints(minWidth: 40)
                         ),
                       )
                   ),
@@ -116,7 +120,9 @@ class _CapacitacionesRState extends State<CapacitacionesR> {
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                            hintText: '| Nombre del Curso'
+                            hintText: '| Nombre del Curso',
+                            suffixIcon: Icon(Icons.sticky_note_2),
+                            suffixIconConstraints: BoxConstraints(minWidth: 40)
                         ),
                       )
                   )
