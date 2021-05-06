@@ -38,7 +38,7 @@ class _DetallePlazaState extends State<DetallePlaza> {
         width: double.infinity,
         child: Column(
           children: <Widget>[
-            DetalleBody(job)
+            DetalleBody(this.job)
           ],
         ),
       ),

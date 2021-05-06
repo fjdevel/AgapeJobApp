@@ -1,5 +1,11 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
+import 'package:agape_job_app/services/provider.dart';
+import 'package:agape_job_app/util/colors.dart';
+import 'package:agape_job_app/util/globals.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 class ExperienciaLaboral extends StatefulWidget {
   @override
   _ExperienciaLaboralState createState() => _ExperienciaLaboralState();
@@ -7,13 +13,20 @@ class ExperienciaLaboral extends StatefulWidget {
 
 class _ExperienciaLaboralState extends State<ExperienciaLaboral> {
   final _scaffoldkey = GlobalKey<ScaffoldState>();
+  var cargoController = TextEditingController(),
+  fechaInicioController = TextEditingController(),
+  fechaFinController = TextEditingController(),
+  funcionesController = TextEditingController(),
+  empresaController = TextEditingController(),
+  jefeController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         key: _scaffoldkey,
         appBar: AppBar(
-          title: Text(' '),
+          title: Text('Ingresar Experiencia Laboral   '),
+          backgroundColor: dPrimaryColor,
         ),
         body: Container(
           height: size.height * 0.95,
@@ -50,6 +63,7 @@ class _ExperienciaLaboralState extends State<ExperienciaLaboral> {
                           ]
                       ),
                       child: TextField(
+                        controller: cargoController,
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
@@ -84,10 +98,11 @@ class _ExperienciaLaboralState extends State<ExperienciaLaboral> {
                       ),
                       child: TextField(
                         keyboardType: TextInputType.datetime,
+                        controller: fechaInicioController,
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                            hintText: '| Fecha Inicio',
+                            hintText: 'AAAA-MM-DD| Fecha Inicio',
                             suffixIcon: Icon(Icons.calendar_today),
                             suffixIconConstraints: BoxConstraints(minWidth: 40)
                         ),
@@ -118,10 +133,11 @@ class _ExperienciaLaboralState extends State<ExperienciaLaboral> {
                       ),
                       child: TextField(
                         keyboardType: TextInputType.datetime,
+                        controller: fechaFinController,
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                            hintText: '| Fecha Fin',
+                            hintText: 'AAAA-MM-DD| Fecha Fin',
                             suffixIcon: Icon(Icons.calendar_today),
                             suffixIconConstraints: BoxConstraints(minWidth: 40)
                         ),
@@ -137,7 +153,7 @@ class _ExperienciaLaboralState extends State<ExperienciaLaboral> {
                   Container(
                       width: size.width *0.85,
                       margin: EdgeInsets.only(top: 5.0),
-                      height: 40.0,
+                      height: 100.0,
                       decoration: BoxDecoration(
                           color: Colors.white,
                           border: Border.all(width: 1, color: Colors.white, style: BorderStyle.solid),
@@ -156,8 +172,11 @@ class _ExperienciaLaboralState extends State<ExperienciaLaboral> {
                             contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
                             hintText: '| Funciones',
                             suffixIcon: Icon(Icons.assignment),
-                            suffixIconConstraints: BoxConstraints(minWidth: 40)
+                            suffixIconConstraints: BoxConstraints(minWidth: 40),
+
                         ),
+                        maxLines: null,
+                        controller: funcionesController,
                       )
                   ),
                   //Nombre de la Empresa
@@ -184,8 +203,10 @@ class _ExperienciaLaboralState extends State<ExperienciaLaboral> {
                           ]
                       ),
                       child: TextField(
+                        controller: empresaController,
                         decoration: InputDecoration(
                             border: InputBorder.none,
+
                             contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
                             hintText: '| Nombre de la Empresa',
                             suffixIcon: Icon(Icons.business_center),
@@ -217,6 +238,7 @@ class _ExperienciaLaboralState extends State<ExperienciaLaboral> {
                           ]
                       ),
                       child: TextField(
+                        controller: jefeController,
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
@@ -225,6 +247,32 @@ class _ExperienciaLaboralState extends State<ExperienciaLaboral> {
                             suffixIconConstraints: BoxConstraints(minWidth: 40)
                         ),
                       )
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 10),
+                    child:ElevatedButton.icon(onPressed: (){
+                      var prov = Provider.of<Proveedor>(this.context,listen: false);
+                      var url = Uri.http(dominio.toString(),'/jeo/servicios/prc_situacion_laboral.php',{
+                        "accion":"IP",
+                        "idEstudiante":prov.idEstudiante,
+                        "user":prov.usr
+                      });
+                      var response = http.post(url,body: {
+                        "cargo":cargoController.text,
+                        "fecha_fin":fechaFinController.text,
+                        "fecha_inicio":fechaInicioController.text,
+                        "funciones":funcionesController.text,
+                        "idEstudiante":prov.idEstudiante,
+                        "nombre_empresa":empresaController.text,
+                        "nombre_jefe":jefeController.text,
+                        "usuario":prov.usr
+                      });
+
+                      response.then((value){
+                        var r = jsonDecode(value.body);
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(r["info"]),));
+                      });
+                    }, icon: Icon(Icons.save), label: Text("Guardar Experiencia Laboral"))
                   ),
                 ],
               ),

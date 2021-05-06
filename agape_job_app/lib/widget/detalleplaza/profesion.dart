@@ -8,11 +8,15 @@ class Profesion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 30),
-      child: Text(
-        this.text,
-        style: TextStyle(fontSize: 30),
+    return Center(
+      child: Container(
+        margin: EdgeInsets.only(top: 30),
+        child: Center(
+          child: Text(
+            this.text,
+            style: TextStyle(fontSize: 20),
+          ),
+        ),
       ),
     );
   }

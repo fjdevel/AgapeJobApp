@@ -1,6 +1,7 @@
 import 'package:agape_job_app/pages/aplicaciones.dart';
 import 'package:agape_job_app/pages/busqueda.dart';
 import 'package:agape_job_app/pages/editprofile.dart';
+import 'package:agape_job_app/pages/experiencialaboral.dart';
 import 'package:agape_job_app/pages/iniciopage.dart';
 import 'package:agape_job_app/pages/login.dart';
 import 'package:agape_job_app/pages/profile.dart';
@@ -38,7 +39,8 @@ class MyApp extends StatelessWidget {
         "/perfil":(BuildContext context)=>Profile(),
         "/registro":(BuildContext context)=>RegisterPage(),
         "/aplicaciones":(BuildContext context)=>Aplicaciones(),
-        "/editarPerfil":(BuildContext context)=>FormularioIngreso()
+        "/editarPerfil":(BuildContext context)=>FormularioIngreso(),
+        "/experiencia":(BuildContext context)=>ExperienciaLaboral()
 
       },
       home: LoginScreen(),

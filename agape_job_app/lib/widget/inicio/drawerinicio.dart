@@ -27,13 +27,28 @@ class _DrawerInicioState extends State<DrawerInicio> {
           ),
           Container(
             margin: EdgeInsets.only(top:50),
-            child: ListTile(title: Text("Aplicaciones",style: TextStyle(fontSize: 30,fontWeight: FontWeight.w400),),onTap: (){
+            child: ListTile(title:
+              Row (
+              children: [
+                Text("Aplicaciones",style: TextStyle(fontSize: 30,fontWeight: FontWeight.w400),),
+              TextButton.icon(onPressed: ()=>{}, icon: Icon(Icons.assignment,color: Colors.black,),label: Text(""),)
+              ],
+              ),
+
+              onTap: (){
               Navigator.of(context).popAndPushNamed("/aplicaciones");
             },),
           ),
           Container(
             margin: EdgeInsets.only(top:50),
-            child: ListTile(title: Text("Perfil",style: TextStyle(fontSize: 30,fontWeight: FontWeight.w400),),
+            child: ListTile(title:
+            Row (
+            children: [
+              Text("Perfil",style: TextStyle(fontSize: 30,fontWeight: FontWeight.w400),),
+              TextButton.icon(onPressed: ()=>{}, icon: Icon(Icons.account_circle_rounded,color: Colors.black,),label: Text(""),)
+              ],
+            ),
+
               onTap:(){ Navigator.of(context).pushNamed("/perfil");}
               ,),
           ),

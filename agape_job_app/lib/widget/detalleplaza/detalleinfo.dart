@@ -45,7 +45,7 @@ class _DetalleInfoState extends State<DetalleInfo> {
                         elevation: 0.0,
                         minWidth: 110,
                         height: 50,
-                        child: Text(_job['razon_social'],
+                        child: Text(_job['ctgEmpresa']['razon_social'],
                             style: TextStyle(color: Colors.white)),
                         onPressed: () => null,),
                     ),

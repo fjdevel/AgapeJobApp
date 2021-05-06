@@ -63,7 +63,7 @@ class _AplicacionesState extends State<Aplicaciones> {
                   child: Text("Descripcion: "+e["descripcion"]+"\n\n"+
                       "Empresa: "+e["ctgEmpresa"]["razon_social"]+"\n\n"+
                       "Salario: "+e["salario"]+"\n\n"+
-                      "Fecha de publicacion: "+e["fecha_publicacion"]
+                      "Fecha de publicacion: "+e["fecha_publicacion"]+"\n\n"
                   ),
                 ),
               );

@@ -30,7 +30,7 @@ class CardJob  extends StatelessWidget {
               children: [
                 ListTile(
                   leading: Image(image:  AssetImage('assets/images/agape logo.PNG'),),
-                  title:  Text(this.job['razon_social'],style: TextStyle(fontSize: size.height*0.025,fontWeight: FontWeight.w600),),
+                  title:  Text("",style: TextStyle(fontSize: size.height*0.025,fontWeight: FontWeight.w600),),
                 ),
                 Align(
 
@@ -70,7 +70,7 @@ class CardJob  extends StatelessWidget {
                     onTap: (){
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => DetallePlaza(job)),
+                        MaterialPageRoute(builder: (context) => DetallePlaza(this.job)),
                       );
                     },),
                   ],

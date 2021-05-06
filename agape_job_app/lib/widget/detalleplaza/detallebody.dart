@@ -26,6 +26,7 @@ class _DetalleBodyState extends State<DetalleBody> {
 
   @override
   Widget build(BuildContext context) {
+    log(this._job.toString());
     return SingleChildScrollView(
       physics: AlwaysScrollableScrollPhysics(),
       scrollDirection: Axis.vertical,
@@ -35,11 +36,11 @@ class _DetalleBodyState extends State<DetalleBody> {
             // Center(
             //   child: LogoDetalle(),
             // ),
-            Profesion(_job['descripcion']),
-            Ubicacion(_job['nombre_municipio']),
+             Center(child: Profesion(_job['descripcion']),),
+            Ubicacion(_job['ctgMuni']==null?"No existe informacion":_job['ctgMuni']["descripcion"]),
             Salario(_job['salario']),
             DetalleInfo(_job),
-            AplicarButton(_job['id'])
+            AplicarButton(_job['id']['id'])
           ],
         ),
       ),

@@ -250,7 +250,6 @@ class _FormularioIngreso extends State<FormularioIngreso>{
           ),
         )
     );
-    print(_chosenValueG);
     return Scaffold(
       key: _scaffoldkey,
       appBar: AppBar(
@@ -288,23 +287,14 @@ class _FormularioIngreso extends State<FormularioIngreso>{
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                          hintText: '| PRIMER NOMBRE'
+                          hintText: '| PRIMER NOMBRE',
+                          suffixIcon: Icon(Icons.account_circle),
+                          suffixIconConstraints: BoxConstraints(minWidth: 40),
                       ),
                       controller: nombreCon,
                     )
                 ),
                 Texto('Segundo Nombre'),
-<<<<<<< HEAD
-                TextFields('| SEGUNDO NOMBRE', Icons.account_circle),
-                Texto('Tercer Nombre'),
-                TextFields('| TERCER NOMBRE', Icons.account_circle),
-                Texto('Primer Apellido'),
-                TextFields('| PRIMER APELLIDO', Icons.account_circle),
-                Texto('Segundo Apellido'),
-                TextFields('| SEGUNDO APELLIDO', Icons.account_circle),
-                Texto('Apellido de Casada'),
-                TextFields('| APELLIDO DE CASADA', Icons.account_circle),
-=======
                 Container(
                     width: size.width *0.85,
                     margin: EdgeInsets.only(top: 5.0),
@@ -325,7 +315,9 @@ class _FormularioIngreso extends State<FormularioIngreso>{
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                          hintText: '| SEGUNDO NOMBRE'
+                          hintText: '| SEGUNDO NOMBRE',
+                        suffixIcon: Icon(Icons.account_circle),
+                        suffixIconConstraints: BoxConstraints(minWidth: 40),
                       ),
                       controller: seguCon,
                     )
@@ -351,7 +343,9 @@ class _FormularioIngreso extends State<FormularioIngreso>{
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                          hintText: '| TERCER NOMBRE'
+                          hintText: '| TERCER NOMBRE',
+                        suffixIcon: Icon(Icons.account_circle),
+                        suffixIconConstraints: BoxConstraints(minWidth: 40),
                       ),
                       controller: tercerCon,
                     )
@@ -377,7 +371,9 @@ class _FormularioIngreso extends State<FormularioIngreso>{
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                          hintText: '| PRIMER APELLIDO'
+                          hintText: '| PRIMER APELLIDO',
+                        suffixIcon: Icon(Icons.account_circle),
+                        suffixIconConstraints: BoxConstraints(minWidth: 40),
                       ),
                       controller: apellCon,
                     )
@@ -403,7 +399,9 @@ class _FormularioIngreso extends State<FormularioIngreso>{
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                          hintText: '| SEGUNDO APELLIDO'
+                          hintText: '| SEGUNDO APELLIDO',
+                        suffixIcon: Icon(Icons.account_circle),
+                        suffixIconConstraints: BoxConstraints(minWidth: 40),
                       ),
                       controller: segApCon,
                     )
@@ -429,7 +427,9 @@ class _FormularioIngreso extends State<FormularioIngreso>{
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                          hintText: '| APELLIDO DE CASADA'
+                          hintText: '| APELLIDO DE CASADA',
+                        suffixIcon: Icon(Icons.account_circle),
+                        suffixIconConstraints: BoxConstraints(minWidth: 40),
                       ),
                       controller: apellCasaCon,
                     )
@@ -455,12 +455,13 @@ class _FormularioIngreso extends State<FormularioIngreso>{
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                          hintText: '| CARNET'
+                          hintText: '| CARNET',
+                        suffixIcon: Icon(Icons.account_balance_wallet),
+                        suffixIconConstraints: BoxConstraints(minWidth: 40),
                       ),
                       controller:carnetCon,
                     )
                 ),
->>>>>>> bde6e07b1f9916c90cd0423abbd6b229ef289d29
                 Texto('Estado Civil'),
                 estadosDrop,
                 Texto('Sexo'),
@@ -470,11 +471,6 @@ class _FormularioIngreso extends State<FormularioIngreso>{
                 Texto('Fecha de Nacimiento'),
                 fecha,
                 Texto('DUI'),
-<<<<<<< HEAD
-                TextFields('| 99999999-9', Icons.badge),
-                Texto('NIT'),
-                TextFields('| 9999-999999-999-9', Icons.badge),
-=======
                 Container(
                     width: size.width *0.85,
                     margin: EdgeInsets.only(top: 5.0),
@@ -495,7 +491,9 @@ class _FormularioIngreso extends State<FormularioIngreso>{
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                          hintText: '| 99999999-9'
+                          hintText: '| 99999999-9',
+                        suffixIcon: Icon(Icons.account_circle),
+                        suffixIconConstraints: BoxConstraints(minWidth: 40),
                       ),
                       controller: duiCon,
                     )
@@ -521,27 +519,18 @@ class _FormularioIngreso extends State<FormularioIngreso>{
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                          hintText: '| 9999-999999-999-9'
+                          hintText: '| 9999-999999-999-9',
+                        suffixIcon: Icon(Icons.account_circle),
+                        suffixIconConstraints: BoxConstraints(minWidth: 40),
                       ),
                       controller: nitCon,
                     )
                 ),
->>>>>>> bde6e07b1f9916c90cd0423abbd6b229ef289d29
                 Texto('Departamento'),
                 departamentosDrop,
                 Texto('Municipio'),
                 municipioDrop,
                 Texto('Dirección'),
-<<<<<<< HEAD
-                TextFields('| DIRECCIÓN', Icons.home),
-                Texto('Número de Celular'),
-                TextFields('| NÚMERO DE CELULAR', Icons.phone_android),
-                Texto('Número Fijo'),
-                TextFields('| NUMERO FIJO', Icons.phone),
-                Texto('Correo Electrónico'),
-                TextFields('| CORREO ELECTRÓNICO', Icons.mail),
-                ChkGraduado(),
-=======
                 Container(
                     width: size.width *0.85,
                     margin: EdgeInsets.only(top: 5.0),
@@ -562,7 +551,9 @@ class _FormularioIngreso extends State<FormularioIngreso>{
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                          hintText: '| DIRECCION'
+                          hintText: '| DIRECCION',
+                        suffixIcon: Icon(Icons.home),
+                        suffixIconConstraints: BoxConstraints(minWidth: 40),
                       ),
                       controller: dirCon,
                     )
@@ -588,7 +579,9 @@ class _FormularioIngreso extends State<FormularioIngreso>{
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                          hintText: '| NÚMERO DE CELULAR'
+                          hintText: '| NÚMERO DE CELULAR',
+                        suffixIcon: Icon(Icons.phone_android),
+                        suffixIconConstraints: BoxConstraints(minWidth: 40),
                       ),
                       controller: numCon,
                     )
@@ -614,7 +607,9 @@ class _FormularioIngreso extends State<FormularioIngreso>{
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                          hintText: '| NUMERO FIJO'
+                          hintText: '| NUMERO FIJO',
+                        suffixIcon: Icon(Icons.phone),
+                        suffixIconConstraints: BoxConstraints(minWidth: 40),
                       ),
                       controller: numFijoCon,
                     )
@@ -640,13 +635,14 @@ class _FormularioIngreso extends State<FormularioIngreso>{
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                          hintText: '| CORREO ELECTRÓNICO'
+                          hintText: '| CORREO ELECTRÓNICO',
+                        suffixIcon: Icon(Icons.email),
+                        suffixIconConstraints: BoxConstraints(minWidth: 40),
                       ),
                       controller: emailCon,
                     )
                 ),
                 check,
->>>>>>> bde6e07b1f9916c90cd0423abbd6b229ef289d29
                 Container(
                   width: size.width * 0.85,
                   margin: EdgeInsets.fromLTRB(15, 15, 15, 25),

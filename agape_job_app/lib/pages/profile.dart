@@ -54,7 +54,7 @@ class _ProfileState extends State<Profile> {
       });
     });
 
-    if(profile!=null&&cursos!=null)
+    if(profile!=null&&cursos!=null&&profile[0]!=null)
     return Scaffold(
       backgroundColor: dPrimaryColor,
       appBar: DPlazaBar("Mi Perfil"),
@@ -132,12 +132,15 @@ class _ProfileState extends State<Profile> {
                                       ),
                                       Container(
                                         width: size.width*0.8,
-                                        margin: EdgeInsets.only(bottom: 10,left:8),
+                                        margin: EdgeInsets.only(bottom: 10,left:8,right: 8),
                                         child:
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text("Sexo: ",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+                                            Row(
+                                              children: [Icon(Icons.account_circle),
+                                                Text("Sexo: ",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold))],
+                                            ),
                                             Text(profile[0]["sexo"]=="M"?"Mujer":"Hombre")
                                           ],
                                         ),
@@ -149,8 +152,11 @@ class _ProfileState extends State<Profile> {
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text("Fecha de nacimiento: ",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                            Text(profile[0]["fecha_nacimiento"])
+                                            Row(
+                                              children: [Icon(Icons.calendar_today),
+                                                Text("Fecha de nacimiento: ",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold))],
+                                            ),
+                                            Text(profile[0]["fecha_nacimiento"]==null?"":profile[0]["fecha_nacimiento"])
                                           ],
                                         ),
                                       ),
@@ -161,8 +167,11 @@ class _ProfileState extends State<Profile> {
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text("Estado Civíl:",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                            Text(profile[0]["id_est_civil"]["descripcion"])
+                                            Row(
+                                              children: [Icon(Icons.account_circle),
+                                                Text("Estado Civíl:",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold))],
+                                            ),
+                                            Text(profile[0]["id_est_civil"]==null?"":profile[0]["id_est_civil"]["descripcion"])
                                           ],
                                         ),
                                       ),
@@ -173,7 +182,10 @@ class _ProfileState extends State<Profile> {
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text("DUI:",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+                                            Row(
+                                              children: [Icon(Icons.account_circle),
+                                                Text("DUI:",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold))],
+                                            ),
                                             Text(profile[0]["dui"])
                                           ],
                                         ),
@@ -185,7 +197,10 @@ class _ProfileState extends State<Profile> {
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text("NIT:",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+                                            Row(
+                                              children: [Icon(Icons.account_circle),
+                                                Text("NIT:",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold))],
+                                            ),
                                             Text(profile[0]["nit"])
                                           ],
                                         ),
@@ -197,8 +212,11 @@ class _ProfileState extends State<Profile> {
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text("Género:",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                            Text(profile[0]["id_genero"]["descripcion"])
+                                            Row(
+                                              children: [Icon(Icons.account_circle),
+                                                Text("Género:",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold))],
+                                            ),
+                                            Text(profile[0]["id_genero"]==null?"":profile[0]["id_genero"]["descripcion"])
                                           ],
                                         ),
                                       ),
@@ -209,7 +227,10 @@ class _ProfileState extends State<Profile> {
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text("Departamento:",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
+                                            Row(
+                                              children: [Icon(Icons.account_circle),
+                                                Text("Departamento:",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold))],
+                                            ),
                                             Text(profile[0]["id_depto"]["descripcion"])
                                           ],
                                         ),
@@ -221,8 +242,11 @@ class _ProfileState extends State<Profile> {
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text("Municipio:",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                            Text(profile[0]["id_muni"]["descripcion"])
+                                            Row(
+                                              children: [Icon(Icons.account_circle),
+                                                Text("Municipio:",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold))],
+                                            ),
+                                            Text(profile[0]["id_muni"]==null?"":profile[0]["id_muni"]["descripcion"])
                                           ],
                                         ),
                                       ),
@@ -234,8 +258,11 @@ class _ProfileState extends State<Profile> {
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text("Número Celular",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                            Text(profile[0]["num_celular"])
+                                            Row(
+                                              children: [Icon(Icons.phone_android),
+                                                Text("Número Celular",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold))],
+                                            ),
+                                            Text(profile[0]["num_celular"]==null?"":profile[0]["num_celular"])
                                           ],
                                         ),
                                       ),
@@ -246,15 +273,18 @@ class _ProfileState extends State<Profile> {
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text("Número Fijo",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
-                                            Text(profile[0]["num_fijo"])
+                                            Row(
+                                              children: [Icon(Icons.phone),
+                                                Text("Número Fijo",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold))],
+                                            ),
+                                            Text(profile[0]["num_fijo"]==null?"":profile[0]["num_fijo"])
                                           ],
                                         ),
                                       ),
                                       Text("Dirección: ",style:TextStyle(fontSize: 16,fontWeight: FontWeight.bold)),
                                       Container(
                                         width: size.width*0.75,
-                                        child: Text(profile[0]["direccion"],textAlign: TextAlign.justify,maxLines: 10,overflow: TextOverflow.ellipsis,),
+                                        child: Text(profile[0]["direccion"]==null?"":profile[0]["direccion"],textAlign: TextAlign.justify,maxLines: 10,overflow: TextOverflow.ellipsis,),
                                       ),
                                   Container(
                                         margin: EdgeInsets.only(top: size.height*0.01,bottom: size.height*0.01),
@@ -264,6 +294,12 @@ class _ProfileState extends State<Profile> {
                                             ElevatedButton.icon(onPressed: ()=>{
                                               Navigator.of(context).pushNamed("/editarPerfil")
                                             }, label: Text("Editar"),icon: Icon(Icons.edit),),
+                                            Container(
+                                              margin: EdgeInsets.only(left: 5),
+                                              child: ElevatedButton.icon(onPressed: (){
+                                                Navigator.of(context).pushNamed("/experiencia");
+                                              }, icon: Icon(Icons.edit), label:Text("Experiencia Laboral")),
+                                            )
                                             //ElevatedButton.icon(onPressed: ()=>{}, label: Text("Descargar cv"), icon:Icon(Icons.download_outlined),)
                                           ],
                                         ),

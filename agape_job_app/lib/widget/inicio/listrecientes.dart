@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:agape_job_app/services/provider.dart';
 import 'package:agape_job_app/util/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 import 'cardjobrecent.dart';
 class ListRecientes extends StatefulWidget {
@@ -11,6 +13,7 @@ class ListRecientes extends StatefulWidget {
 }
 
 class _ListRecientesState extends State<ListRecientes> {
+  Map<String, dynamic> map;
   List listPl = [];
   @override
   void initState() {
@@ -20,13 +23,19 @@ class _ListRecientesState extends State<ListRecientes> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    var url = Uri.http(dominio.toString(),'/jeo/servicios/consultar_plazas_disponibles.php');
+    var prov = Provider.of<Proveedor>(this.context,listen: false);
+    var url = Uri.http(dominio.toString(),'jeo/servicios/prc_plaza.php',{
+      'accion':'COLV',
+      'fechaFinal':'Y',
+      'idEstudiante':prov.idEstudiante
+    });
     var response = http.get(url);
     response.then((value) {
       setState(() {
         if(value.body.isNotEmpty||value.body!=""){
-        listPl = jsonDecode(value.body);
-        listPl.removeRange(0, 2);}
+        map = jsonDecode(value.body);
+        listPl = map["info"];
+        }
       });
     });
     return Container(
