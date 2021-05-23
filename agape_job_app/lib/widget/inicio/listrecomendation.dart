@@ -13,12 +13,13 @@ class ListRecomendation extends StatefulWidget {
 }
 
 class _ListRecomendationState extends State<ListRecomendation> {
-  Map<String, dynamic> map;
   List listPl = [];
   @override
   void initState() {
     super.initState();
-
+    if(mounted){
+      obtenerRecomendados();
+    }
   }
 
 
@@ -26,21 +27,7 @@ class _ListRecomendationState extends State<ListRecomendation> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    var prov = Provider.of<Proveedor>(this.context,listen: false);
-    var url = Uri.http(dominio.toString(),'jeo/servicios/prc_plaza.php',{
-      'accion':'COLV',
-      'fechaFinal':'Y',
-      'idEstudiante':prov.idEstudiante
-    });
-    var response = http.get(url);
-    response.then((value) {
-      setState(() {
-        if(value.body.isNotEmpty || value.body!=""){
-          map= jsonDecode(value.body);
-          listPl=map["info"];
-        }
-      });
-    });
+
 
     return Container(
       margin: EdgeInsets.only(top: 10),
@@ -49,12 +36,33 @@ class _ListRecomendationState extends State<ListRecomendation> {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
-          listPl.isNotEmpty?
-          CardJob(listPl[0]):
-          Text("No hay plazas disponibles")
+          for(var e in listPl) CardJob(e)
 
         ],
       ),
     );
+  }
+
+  void obtenerRecomendados() {
+    var prov = Provider.of<Proveedor>(this.context,listen: false);
+    var url = Uri.http(dominio.toString(),'jeo/servicios/prc_plazas_sugeridas.php',{
+      'accion':'C',
+      'idEstudiante':prov.idEstudiante
+    });
+    var response = http.get(url);
+    response.then((value) {
+      print("peticion recomendados");
+      setState(() {
+        if(value.body.isNotEmpty || value.body!=""){
+          if(!value.body.toString().contains("<!")){
+            var map= jsonDecode(value.body)["info"];
+            for(var o in map){
+              this.listPl.add(o);
+            }
+          }
+
+        }
+      });
+    });
   }
 }

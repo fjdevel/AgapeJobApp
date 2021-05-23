@@ -4,7 +4,6 @@ import 'dart:developer';
 import 'package:agape_job_app/services/provider.dart';
 import 'package:agape_job_app/util/colors.dart';
 import 'package:agape_job_app/util/globals.dart';
-import 'package:agape_job_app/widget/perfil/textinfo.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';

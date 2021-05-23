@@ -45,7 +45,7 @@ class _EmailLoginState extends State<EmailLogin> {
               margin: EdgeInsets.only(left: 20, top: 10),
               padding: EdgeInsets.only(top: 2),
               child: Text(
-                "Correo Electrónico",
+                "Usuario",
                 style: TextStyle(fontSize: 11),
               )
           ),
@@ -53,7 +53,7 @@ class _EmailLoginState extends State<EmailLogin> {
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
               border: InputBorder.none,
-              hintText: 'ejemplo@mail.com',
+              hintText: 'Digite su usuario',
               hintStyle: TextStyle(fontSize: 14),
               contentPadding: EdgeInsets.fromLTRB(20, 25, 0, 10),
               isDense: true,

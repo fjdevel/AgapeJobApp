@@ -30,7 +30,7 @@ class _LoginButtonState extends State<LoginButton> {
             //var url = Uri.http('192.168.1.5','/jeo/servicios/seguridad/inicio_de_sesion.php');
 
             var url = Uri.http(dominio.toString(),'/jeo/servicios/seguridad/inicio_de_sesion.php');
-            var response = await http.post(url,body: {"email":prov.EMAIL,"password":prov.PASS});
+            var response = await http.post(url,body: {"user":prov.EMAIL,"password":prov.PASS});
             if(response.statusCode==200){
               var resp = response.body.split(",");
               prov.usr = resp[0].split(":").last.replaceAll('"', '');

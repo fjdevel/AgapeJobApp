@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:agape_job_app/pages/detalleplaza.dart';
 import 'package:agape_job_app/util/colors.dart';
+import 'package:agape_job_app/util/globals.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +23,7 @@ class CardJobRecent extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            (job['ctgEmpresa']['logo']!=null)?
             Container(
               width: 50,
               height: 50,
@@ -27,9 +31,10 @@ class CardJobRecent extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.black,
                 shape: BoxShape.circle,
-                image: new DecorationImage(fit: BoxFit.fitWidth,image:  AssetImage('assets/images/agape logo.PNG'))
+                image: new DecorationImage(fit: BoxFit.fitWidth,image:  NetworkImage('http://www.'+dominio.toString()+'/jeo/servicios/'+job['ctgEmpresa']['logo']))
               ),
-            ),
+            ):
+            Container(),
            Expanded(child: Column(
              children: [
                Container(

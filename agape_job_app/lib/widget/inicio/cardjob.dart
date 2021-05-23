@@ -1,17 +1,64 @@
-import 'package:agape_job_app/pages/detalleplaza.dart';
-import 'package:agape_job_app/util/colors.dart';
-import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'dart:developer';
 
-class CardJob  extends StatelessWidget {
+import 'package:agape_job_app/pages/detalleplaza.dart';
+import 'package:agape_job_app/services/provider.dart';
+import 'package:agape_job_app/util/colors.dart';
+import 'package:agape_job_app/util/globals.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+
+
+class CardJob extends StatefulWidget {
 
   dynamic job;
-
 
   CardJob(this.job);
 
   @override
+  _CardJobState createState() => _CardJobState(this.job);
+}
+
+class _CardJobState extends State<CardJob> {
+
+  dynamic _job;
+  dynamic jobdetail;
+
+  _CardJobState(this._job);
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+
+      var prov = Provider.of<Proveedor>(context,listen: false);
+      var url = Uri.http(dominio.toString(),'jeo/servicios/prc_plaza.php',{
+        'accion':'C',
+        'id':_job['id']
+      });
+      var response = http.get(url);
+      response.then((value){
+        print("peticion cardJob");
+        setState(() {
+          if(mounted){
+            if(!value.body.contains("<!DOCTYPE")){
+              var map = jsonDecode(value.body);
+              jobdetail = map['info'];
+            }
+
+          }
+
+        });
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+
     return Container(
       width: size.width*0.6,
       height: size.height*0.18,
@@ -23,13 +70,13 @@ class CardJob  extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: dSecundaryColor
+                  color: dSecundaryColor
               ),
             ),
             Column(
               children: [
                 ListTile(
-                  leading: Image(image:  AssetImage('assets/images/agape logo.PNG'),),
+                  leading: Image(image:  NetworkImage('http://www.'+dominio.toString()+'/jeo/servicios/'+jobdetail[0]['ctgEmpresa']['logo']),),
                   title:  Text("",style: TextStyle(fontSize: size.height*0.025,fontWeight: FontWeight.w600),),
                 ),
                 Align(
@@ -42,7 +89,7 @@ class CardJob  extends StatelessWidget {
                       color: dPrimaryColorT,
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Text(this.job['descripcion'],style: TextStyle(color: Colors.white,fontSize: size.height*0.02),),
+                     child: Text(this.jobdetail[0]['descripcion'],style: TextStyle(color: Colors.white,fontSize: size.height*0.02),),
                   ),
                 ),//puesto
                 Row(
@@ -55,7 +102,7 @@ class CardJob  extends StatelessWidget {
                         color: dPrimaryColorT,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Text("\$"+this.job['salario']+" / mes",style: TextStyle(color: Colors.white,fontSize: size.height*0.02),),
+                       child: Text("\$"+this.jobdetail[0]['salario']+" / mes",style: TextStyle(color: Colors.white,fontSize: size.height*0.02),),
                     ),
                     GestureDetector(child: Container(
                       padding: EdgeInsets.only(left: 20,right:20,top: 5,bottom: 5),
@@ -67,12 +114,12 @@ class CardJob  extends StatelessWidget {
                       child: Text("Ver",style: TextStyle(color: Colors.white,fontSize: size.height*0.02),),
 
                     ),
-                    onTap: (){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => DetallePlaza(this.job)),
-                      );
-                    },),
+                      onTap: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => DetallePlaza(jobdetail[0])),
+                        );
+                      },),
                   ],
                 )
               ],
@@ -83,3 +130,5 @@ class CardJob  extends StatelessWidget {
     );
   }
 }
+
+

@@ -52,10 +52,19 @@ class _DrawerInicioState extends State<DrawerInicio> {
               onTap:(){ Navigator.of(context).pushNamed("/perfil");}
               ,),
           ),
-          // Container(
-          //   margin: EdgeInsets.only(top:50),
-          //   child: ListTile(title: Text("Notificaciones",style: TextStyle(fontSize: 30,fontWeight: FontWeight.w400),),),
-          // ),
+          Container(
+            margin: EdgeInsets.only(top:50),
+            child: ListTile(title:
+            Row (
+              children: [
+                Text("Configuración",style: TextStyle(fontSize: 30,fontWeight: FontWeight.w400),),
+                TextButton.icon(onPressed: ()=>{}, icon: Icon(Icons.admin_panel_settings,color: Colors.black,),label: Text(""),)
+              ],
+            ),
+
+              onTap:(){ Navigator.of(context).pushNamed("/configuracion");}
+              ,),
+          ),
         ],
       ),
     );

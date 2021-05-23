@@ -16,12 +16,20 @@ import 'package:provider/provider.dart';
 
 
 class FormularioIngreso extends StatefulWidget {
+  var data;
+
+  FormularioIngreso(this.data);
+
   @override
-  State<StatefulWidget> createState() => _FormularioIngreso();
+  State<StatefulWidget> createState() => _FormularioIngreso(this.data);
  
 }
 
 class _FormularioIngreso extends State<FormularioIngreso>{
+  var _data;
+
+  _FormularioIngreso(this._data);
+
   final _scaffoldkey = GlobalKey<ScaffoldState>();
   List<String> departamentos= [""];
   List<String> municipios= [""];
@@ -56,7 +64,6 @@ class _FormularioIngreso extends State<FormularioIngreso>{
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     var departamentosDrop =Container(
         margin: EdgeInsets.only(top: 5.0),
         padding: EdgeInsets.only(left: 15.0, right: 10.0),
@@ -206,7 +213,7 @@ class _FormularioIngreso extends State<FormularioIngreso>{
             onChanged: (String value) {
               setState(() {
                 if(value=="Hombre")
-                _chosenValueS = "H";
+                  _chosenValueS = "H";
                 else
                   _chosenValueS= "M";
               });
@@ -244,12 +251,27 @@ class _FormularioIngreso extends State<FormularioIngreso>{
             }).toList(),
             onChanged: (String value) {
               setState(() {
-                  _chosenValueE= (int.tryParse(estados.indexOf(value).toString())+1).toString();
+                _chosenValueE= (int.tryParse(estados.indexOf(value).toString())+1).toString();
               });
             },
           ),
         )
     );
+    nombreCon.text = _data['p_nombre'];
+    seguCon.text = _data['s_nombre'];
+    tercerCon.text = _data['t_nombre'];
+    apellCon.text = _data['p_apellido'];
+    segApCon.text = _data['s_apellido'];
+    apellCasaCon.text =_data['c_apellido'];
+    carnetCon.text = _data['carnet'].toString();
+    duiCon.text = _data['dui'];
+    nitCon.text = _data['nit'];
+    dirCon.text = _data['direccion'];
+    numCon.text = _data['num_celular'];
+    numFijoCon.text = _data['num_fijo'];
+    emailCon.text=_data['email'];
+    Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       key: _scaffoldkey,
       appBar: AppBar(
@@ -287,7 +309,7 @@ class _FormularioIngreso extends State<FormularioIngreso>{
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                          hintText: '| PRIMER NOMBRE',
+                          hintText: 'PRIMER NOMBRE',
                           suffixIcon: Icon(Icons.account_circle),
                           suffixIconConstraints: BoxConstraints(minWidth: 40),
                       ),
@@ -315,7 +337,7 @@ class _FormularioIngreso extends State<FormularioIngreso>{
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                          hintText: '| SEGUNDO NOMBRE',
+                          hintText: 'SEGUNDO NOMBRE',
                         suffixIcon: Icon(Icons.account_circle),
                         suffixIconConstraints: BoxConstraints(minWidth: 40),
                       ),
@@ -343,7 +365,7 @@ class _FormularioIngreso extends State<FormularioIngreso>{
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                          hintText: '| TERCER NOMBRE',
+                          hintText: 'TERCER NOMBRE',
                         suffixIcon: Icon(Icons.account_circle),
                         suffixIconConstraints: BoxConstraints(minWidth: 40),
                       ),
@@ -371,7 +393,7 @@ class _FormularioIngreso extends State<FormularioIngreso>{
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 10),
-                          hintText: '| PRIMER APELLIDO',
+                          hintText: 'PRIMER APELLIDO',
                         suffixIcon: Icon(Icons.account_circle),
                         suffixIconConstraints: BoxConstraints(minWidth: 40),
                       ),
