@@ -32,7 +32,6 @@ class _CardJobState extends State<CardJob> {
     // TODO: implement initState
     super.initState();
     setState(() {
-
       var prov = Provider.of<Proveedor>(context,listen: false);
       var url = Uri.http(dominio.toString(),'jeo/servicios/prc_plaza.php',{
         'accion':'C',
@@ -40,13 +39,13 @@ class _CardJobState extends State<CardJob> {
       });
       var response = http.get(url);
       response.then((value){
-        print("peticion cardJob");
         setState(() {
           if(mounted){
             if(!value.body.contains("<!DOCTYPE")){
               var map = jsonDecode(value.body);
               jobdetail = map['info'];
             }
+            print(jobdetail[0]['ctgEmpresa'].toString());
 
           }
 
@@ -76,8 +75,7 @@ class _CardJobState extends State<CardJob> {
             Column(
               children: [
                 ListTile(
-                  leading: Image(image:  NetworkImage('http://www.'+dominio.toString()+'/jeo/servicios/'+jobdetail[0]['ctgEmpresa']['logo']),),
-                  title:  Text("",style: TextStyle(fontSize: size.height*0.025,fontWeight: FontWeight.w600),),
+title:  Text("",style: TextStyle(fontSize: size.height*0.025,fontWeight: FontWeight.w600),),
                 ),
                 Align(
 

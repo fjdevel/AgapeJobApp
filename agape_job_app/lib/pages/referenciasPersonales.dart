@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:agape_job_app/pages/referenciaPersonalForm.dart';
 import 'package:agape_job_app/services/provider.dart';
@@ -33,53 +34,56 @@ class _ReferenciasPersonalesState extends State<ReferenciasPersonales> {
       ),
       body: Column(
         children: [
-          for(var e in referencias)
-            Center(
-              child: Container(
-                width: size.width*0.9,
-                margin: EdgeInsets.only(bottom: 5),
-                child:Card(
-                  elevation: 10,
-                  child:  Column(
-                    children: [
-                      Text("Nombre del Contacto:" +e['nombre_completo']),
-                      Text("Telefono Fijo: "+e['tel_fijo']),
-                      Text("Celular: "+e['tel_celular']),
-                      Text("Email: "+e['email']),
-                      Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(right: 10),
-                              child: ElevatedButton.icon(style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.red)),onPressed: (){
-                                var prov = Provider.of<Proveedor>(this.context,listen: false);
+          if(referencias.length>0)
+            for(var e in referencias)
+              Center(
+                child: Container(
+                  width: size.width*0.9,
+                  margin: EdgeInsets.only(bottom: 5),
+                  child:Card(
+                    elevation: 10,
+                    child:  Column(
+                      children: [
+                        Text("Nombre del Contacto:" +e['nombre_completo']),
+                        Text("Telefono Fijo: "+e['tel_fijo']),
+                        Text("Celular: "+e['tel_celular']),
+                        Text("Email: "+e['email']),
+                        Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(right: 10),
+                                child: ElevatedButton.icon(style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.red)),onPressed: (){
+                                  var prov = Provider.of<Proveedor>(this.context,listen: false);
 
-                                var url = Uri.http(dominio.toString(), '/jeo/servicios/prc_ref_personal.php',{
-                                  'accion':'D',
-                                  'idEstudiante':prov.idEstudiante,
-                                  'user':prov.usr,
-                                  'id':e['id']['id_ref_personal']
-                                });
-                                http.get(url).then((value) {
-                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(jsonDecode(value.body)['info'])));
-                                  obtenerReferencias();
-                                });
-                              }, icon: Icon(Icons.delete),label: Text("Eliminar"),),
-                            ),
-                            ElevatedButton.icon(style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.green)),onPressed: (){
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => ReferenciaPersonalForm(e)),
-                              );
-                            }, icon: Icon(Icons.edit),label: Text("editar"),)
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),),
-            ),
+                                  var url = Uri.http(dominio.toString(), '/jeo/servicios/prc_ref_personal.php',{
+                                    'accion':'D',
+                                    'idEstudiante':prov.idEstudiante,
+                                    'user':prov.usr,
+                                    'id':e['id']['id_ref_personal']
+                                  });
+                                  http.get(url).then((value) {
+                                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(jsonDecode(value.body)['info'])));
+                                    obtenerReferencias();
+                                  });
+                                }, icon: Icon(Icons.delete),label: Text("Eliminar"),),
+                              ),
+                              ElevatedButton.icon(style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.green)),onPressed: (){
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => ReferenciaPersonalForm(e)),
+                                );
+                              }, icon: Icon(Icons.edit),label: Text("editar"),)
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),),
+              ),
+          if(referencias.length<=0)
+            Text("No hay datos con ese parametro"),
           Center(
             child: Container(
               margin: EdgeInsets.only(right: 10),
@@ -102,6 +106,8 @@ class _ReferenciasPersonalesState extends State<ReferenciasPersonales> {
     var URI = Uri.http(dominio.toString(), "/jeo/servicios/prc_ref_personal.php",
         {"accion": "C","idEstudiante":prov.idEstudiante});
     var response = http.get(URI);
+
+    print(URI.normalizePath());
     response.then((value) {
       setState(() {
         try{

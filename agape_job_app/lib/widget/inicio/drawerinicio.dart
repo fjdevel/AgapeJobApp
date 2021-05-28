@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../main.dart';
+
 class DrawerInicio extends StatefulWidget {
   @override
   _DrawerInicioState createState() => _DrawerInicioState();
@@ -65,6 +67,25 @@ class _DrawerInicioState extends State<DrawerInicio> {
               onTap:(){ Navigator.of(context).pushNamed("/configuracion");}
               ,),
           ),
+          Container(
+            margin: EdgeInsets.only(top:50),
+            child: ListTile(title:
+            Row (
+              children: [
+                Text("Salir",style: TextStyle(fontSize: 30,fontWeight: FontWeight.w400),),
+                TextButton.icon(onPressed: ()=>{}, icon: Icon(Icons.logout,color: Colors.black,),label: Text(""),)
+              ],
+            ),
+
+              onTap:(){
+
+                if (Navigator.of(context).canPop()) {
+                  Navigator.pop(context);
+                  Navigator.of(context).popAndPushNamed("/login");
+                }
+              }
+              ,),
+          )
         ],
       ),
     );

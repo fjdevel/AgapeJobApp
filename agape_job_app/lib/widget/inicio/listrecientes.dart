@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:agape_job_app/services/provider.dart';
 import 'package:agape_job_app/util/globals.dart';
@@ -32,7 +33,8 @@ class _ListRecientesState extends State<ListRecientes> {
       width: size.width*0.85,
       child: ListView(
         children: [
-          for(var e in listPl) CardJobRecent(e)
+          for(var e in listPl)
+              CardJobRecent(e)
 
         ],
       ),
@@ -50,12 +52,21 @@ class _ListRecientesState extends State<ListRecientes> {
     var response = http.get(url);
     response.then((value) {
       print("peticion reciente");
-      setState(() {
-        if(value.body.isNotEmpty||value.body!=""){
-          map = jsonDecode(value.body);
-          listPl = map["info"];
-        }
-      });
+      try{
+        setState(() {
+          if(value.body.isNotEmpty||value.body!=""){
+            map = jsonDecode(value.body);
+            var lis= map["info"];
+            for(var l in lis){
+              if(l['aplicacion']==0){
+                listPl.add(l);
+              }
+            }
+          }
+        });
+      }catch(e){
+        log(e.toString());
+      }
     });
   }
 }

@@ -241,65 +241,67 @@ class _PreferenciasFormState extends State<PreferenciasForm> {
         backgroundColor: dPrimaryColor,
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          selectOcupacion,
-          ocupacionCheck,
-          if(otroOcupa==true)ocupacionText,
-          viajeCheck,
-          if(viaje==true)selectDepartamento,
-          sitDrop,
-          salarialText,
-          puestoText,
-          Container(
-              margin: EdgeInsets.only(top: 10),
-              child:ElevatedButton.icon(onPressed: (){
-                var prov = Provider.of<Proveedor>(this.context,listen: false);
-                var url = Uri.http(dominio.toString(),'/jeo/servicios/ctg_estudiante.php',{
-                  "accion":"UPT"
-                });
-                var data = jsonEncode({
-                  "estudiante":{
-                    "id":{
-                      "id":prov.idEstudiante,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            selectOcupacion,
+            ocupacionCheck,
+            if(otroOcupa==true)ocupacionText,
+            viajeCheck,
+            if(viaje==true)selectDepartamento,
+            sitDrop,
+            salarialText,
+            puestoText,
+            Container(
+                margin: EdgeInsets.only(top: 10),
+                child:ElevatedButton.icon(onPressed: (){
+                  var prov = Provider.of<Proveedor>(this.context,listen: false);
+                  var url = Uri.http(dominio.toString(),'/jeo/servicios/ctg_estudiante.php',{
+                    "accion":"UPT"
+                  });
+                  var data = jsonEncode({
+                    "estudiante":{
+                      "id":{
+                        "id":prov.idEstudiante,
+                      },
+                      "situacion_actual":sitValue,
+                      "puesto_trabajo_deseado":puesto.text,
+                      "expectativa_salarial":salarial.text,
+                      "disp_cambiar_residencia":"Sí",
+                      "disponibilidad_viajar":viaje?"1":"0",
+                      "usuario":prov.usr
                     },
-                    "situacion_actual":sitValue,
-                    "puesto_trabajo_deseado":puesto.text,
-                    "expectativa_salarial":salarial.text,
-                    "disp_cambiar_residencia":"Sí",
-                    "disponibilidad_viajar":viaje?"1":"0",
-                    "usuario":prov.usr
-                  },
-                  "deptsViajar":_departamentosByE
-                });
-                var response = http.post(url,body: data);
-                response.then((value){
-                  if(value.statusCode==200)
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.body.toString()),));
-                });
+                    "deptsViajar":_departamentosByE
+                  });
+                  var response = http.post(url,body: data);
+                  response.then((value){
+                    if(value.statusCode==200)
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.body.toString()),));
+                  });
 
-                var urlOcupacion = Uri.http(dominio.toString(),'/jeo/servicios/ctg_ocupacion.php',{
-                  "accion":"I"
-                });
-                var dataOcupacion = jsonEncode({
-                  "estudiante":{
-                    "id":{
-                      "id":prov.idEstudiante,
+                  var urlOcupacion = Uri.http(dominio.toString(),'/jeo/servicios/ctg_ocupacion.php',{
+                    "accion":"I"
+                  });
+                  var dataOcupacion = jsonEncode({
+                    "estudiante":{
+                      "id":{
+                        "id":prov.idEstudiante,
+                      },
+                      "otraOcu":OtraOcupacion.text,
+                      "usuario":prov.usr
                     },
-                    "otraOcu":OtraOcupacion.text,
-                    "usuario":prov.usr
-                  },
-                  "ocupaciones":_ocupacionesByE
-                });
-                var response2 = http.post(urlOcupacion,body: dataOcupacion);
-                response2.then((value){
-                  if(value.statusCode==200)
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(jsonDecode(value.body)['info']),));
-                });
+                    "ocupaciones":_ocupacionesByE
+                  });
+                  var response2 = http.post(urlOcupacion,body: dataOcupacion);
+                  response2.then((value){
+                    if(value.statusCode==200)
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(jsonDecode(value.body)['info']),));
+                  });
 
 
-              }, icon: Icon(Icons.save), label: Text("Actualizar Preferencias de trabajo"))
-          )],
+                }, icon: Icon(Icons.save), label: Text("Actualizar Preferencias de trabajo"))
+            )],
+        ),
       ),
     );
   }
@@ -370,7 +372,8 @@ class _PreferenciasFormState extends State<PreferenciasForm> {
         var respuesta = jsonDecode(value.body)['info'];
 
         for (var s in respuesta) {
-          this._departamentosByE.add(s);
+          if(s['aplicacion']!=0)
+            this._departamentosByE.add(s);
         }
       });
     });

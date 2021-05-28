@@ -40,7 +40,7 @@ class _FormacionAcademicaState extends State<FormacionAcademica> {
                 child: Center(
                   child: Column(
                     children: [
-                      Text(c['titulo_recibido']+"\n"+c['institucion']+"\n"+c['fecha_fin']),
+                      Text("Titulo: "+c['titulo_recibido']+"\n"+"Institucion: "+c['institucion']+"\n"+"Fecha finalizacion: "+c['fecha_fin']),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -56,15 +56,17 @@ class _FormacionAcademicaState extends State<FormacionAcademica> {
                                 'idFormacion':c['id']['id'],
                               });
                               http.get(url).then((value) {
-                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.body.toString())));
-                                obtenerFormaciones();
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(jsonDecode(value.body)['info'])));
+                                setState(() {
+                                  obtenerFormaciones();
+                                });
                               });
                             }, icon: Icon(Icons.delete),label: Text("Eliminar"),),
                           ),
                           ElevatedButton.icon(style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.green)),onPressed: (){
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => FormacionAcademicaForm(c)),
+                              MaterialPageRoute(builder: (context) => FormacionAcademicaForm(c,obtenerFormaciones)),
                             );
 
                           }, icon: Icon(Icons.edit),label: Text("editar"),)
@@ -80,9 +82,10 @@ class _FormacionAcademicaState extends State<FormacionAcademica> {
               margin: EdgeInsets.only(left: 5),
               child: ElevatedButton.icon(
                   onPressed: () {
-                    Navigator.of(context)
-                        .popAndPushNamed(
-                        "/formacionForm");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => FormacionAcademicaForm(null,obtenerFormaciones)),
+                    );
                   },
                   icon: Icon(Icons.edit),
                   label:
@@ -100,15 +103,19 @@ class _FormacionAcademicaState extends State<FormacionAcademica> {
         {"accion": "CA","idEstudiante":prov.idEstudiante});
     var response = http.get(URI);
     response.then((value) {
-      setState(() {
-        try{
-          var respuesta = jsonDecode(value.body)['info'];
-          for (var s in respuesta) {
-            this.formaciones.add(s);
-          }}catch(e){
+      print("peticion Formaciones");
+      if(mounted){
+        setState(() {
+          try{
+            this.formaciones.clear();
+            var respuesta = jsonDecode(value.body)['info'];
+            for (var s in respuesta) {
+              this.formaciones.add(s);
+            }}catch(e){
 
-        };
-      });
+          };
+        });
+      }
     });
   }
 }

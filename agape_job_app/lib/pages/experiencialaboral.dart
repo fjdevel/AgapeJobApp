@@ -35,11 +35,14 @@ class _ExperienciaLaboralState extends State<ExperienciaLaboral> {
   void initState() {
     super.initState();
     if(_data!=null){
-      fechaInicio.currentDate = _data['fecha_inicio'];
-      fechaFin.currentDate = _data['fecha_fin'];
+      var fechaA= _data['fecha_inicio'].toString().split("/");
+      fechaInicio.currentDate = DateTime.parse(fechaA[2]+"-"+fechaA[1]+"-"+fechaA[0]);
+      var fechaB = _data['fecha_fin'].toString().split("/");
+      fechaFin.currentDate =  DateTime.parse(fechaB[2]+"-"+fechaB[1]+"-"+fechaB[0]);
       funcionesController.text = _data['funciones'];
       empresaController.text = _data['nombre_empresa'];
       jefeController.text = _data['nombre_jefe'];
+      cargoController.text = _data['cargo'];
       setState(() {
 
       });

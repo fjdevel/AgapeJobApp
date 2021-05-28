@@ -25,7 +25,7 @@ class _HabilidadesBlandasFormState extends State<HabilidadesBlandasForm> {
     super.initState();
     if(mounted){
       obtenerHabilidades();
-      obtenerHabilidadesByE();
+      //obtenerHabilidadesByE();
     }
   }
 
@@ -46,8 +46,13 @@ class _HabilidadesBlandasFormState extends State<HabilidadesBlandasForm> {
               items: habilidades.map((e) => MultiSelectItem(e, e['descripcion'])).toList(),
               initialValue: habilidadesByE,
               listType: MultiSelectListType.CHIP,
+              onSelectionChanged: (habilidadesByE){
+                print(habilidadesByE.length.toString());
+                if(!(habilidadesByE.length<8))
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Solo se pueden seleccionar 7 como máximo")));
+              },
               onConfirm: (values) {
-                habilidadesByE = values;
+                  habilidadesByE = values;
               },
             ),
             Center(
@@ -69,26 +74,31 @@ class _HabilidadesBlandasFormState extends State<HabilidadesBlandasForm> {
                     ),
                   ),
                   onPressed: (){
-                    var prov = Provider.of<Proveedor>(this.context,listen: false);
-                    var url = Uri.http(dominio.toString(),'/jeo/servicios/ctg_habilidad_blanda.php',{
-                      "accion":"I",
-                    });
-                    var data = jsonEncode({
-                      "estudiante":{
-                        "habBlandas":habilidadesByE,
-                        "id":{
-                          "id":prov.idEstudiante
-                        },
-                        "usuario":prov.usr
-                      }
-                    });
+                    print(habilidadesByE.length.toString());
+                    if(habilidadesByE.length<8){
+                      var prov = Provider.of<Proveedor>(this.context,listen: false);
+                      var url = Uri.http(dominio.toString(),'/jeo/servicios/ctg_habilidad_blanda.php',{
+                        "accion":"I",
+                      });
+                      var data = jsonEncode({
+                        "estudiante":{
+                          "habBlandas":habilidadesByE,
+                          "id":{
+                            "id":prov.idEstudiante
+                          },
+                          "usuario":prov.usr
+                        }
+                      });
 
-                    var response = http.post(url,body: data);
+                      var response = http.post(url,body: data);
 
-                    response.then((value) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(jsonDecode(value.body)["info"])));
+                      response.then((value) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(jsonDecode(value.body)["info"])));
 
-                    });
+                      });
+                    }else{
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Solo se pueden seleccionar 7 como máximo")));
+                    }
                   },
                 ),
               ),
@@ -118,13 +128,17 @@ class _HabilidadesBlandasFormState extends State<HabilidadesBlandasForm> {
     var URI = Uri.http(dominio.toString(), "/jeo/servicios/ctg_habilidad_blanda.php",
         {"accion": "CBE","id":prov.idEstudiante});
     var response = http.get(URI);
-    response.then((value) {
-      setState(() {
-        var respuesta = jsonDecode(value.body)['info'];
-        for (var s in respuesta) {
-          this.habilidadesByE.add(s);
-        }
+    try{
+      response.then((value) {
+        setState(() {
+          var respuesta = jsonDecode(value.body)['info'];
+          for (var s in respuesta) {
+            this.habilidadesByE.add(s);
+          }
+        });
       });
-    });
+    }catch(e){
+      habilidadesByE = [];
+    }
   }
 }

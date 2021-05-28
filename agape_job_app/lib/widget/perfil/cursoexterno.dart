@@ -47,6 +47,7 @@ class _CursoExternoState extends State<CursoExterno> {
                   });
                   http.post(url,body: datapost).then((value) {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(jsonDecode(value.body)['info'])));
+                    widget.funcion();
                   });
                 }, icon: Icon(Icons.delete),label: Text("Eliminar"),),
               ),

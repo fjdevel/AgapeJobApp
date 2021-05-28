@@ -30,9 +30,9 @@ class _ReferenciaPersonalFormState extends State<ReferenciaPersonalForm> {
     if(mounted){
       if(widget.data!=null)
         nombre.text = widget.data['nombre_completo'];
-        celular.text = widget.data['tel_celular'];
-        tel.text = widget.data['tel_fijo'];
-        email.text = widget.data['email'];
+        celular.text = widget.data==null?"":widget.data['tel_celular'];
+        tel.text = widget.data==null?"":widget.data['tel_fijo'];
+        email.text = widget.data==null?"":widget.data['email'];
       }
     }
 
@@ -223,6 +223,8 @@ class _ReferenciaPersonalFormState extends State<ReferenciaPersonalForm> {
                     "email":email.text,
                     "telCel":celular.text
                   });
+
+                  print(url.normalizePath());
                   var response = http.get(url);
 
                   response.then((value){

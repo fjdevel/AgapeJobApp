@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
         "/discapacidades":(BuildContext context)=>Discapacidades(),
         "/discapacidadfForm":(BuildContext context)=>DiscapacidadForm(),
         "/formacionAcademica":(BuildContext context)=>FormacionAcademica(),
-        "/formacionForm":(BuildContext context)=>FormacionAcademicaForm(null),
+        "/formacionForm":(BuildContext context)=>FormacionAcademicaForm(null,null),
         "/habilidadesBlandas":(BuildContext context)=>HabilidadesBlandas(),
         "/habilidadesBlandasForm":(BuildContext context)=>HabilidadesBlandasForm(),
         "/otrasHabilidades":(BuildContext context)=>OtrasHabilidades(),

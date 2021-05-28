@@ -1,14 +1,10 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:agape_job_app/services/provider.dart';
 import 'package:agape_job_app/util/colors.dart';
 import 'package:agape_job_app/util/globals.dart';
-import 'package:agape_job_app/widget/editprofile/btneditprofile.dart';
 import 'package:agape_job_app/widget/editprofile/chkgraduado.dart';
-import 'package:agape_job_app/widget/editprofile/droptextfields.dart';
 import 'package:agape_job_app/widget/editprofile/fechanacimiento.dart';
-import 'package:agape_job_app/widget/editprofile/textfields.dart';
 import 'package:agape_job_app/widget/editprofile/textos.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -17,8 +13,9 @@ import 'package:provider/provider.dart';
 
 class FormularioIngreso extends StatefulWidget {
   var data;
+  var funcion;
 
-  FormularioIngreso(this.data);
+  FormularioIngreso(this.data,this.funcion);
 
   @override
   State<StatefulWidget> createState() => _FormularioIngreso(this.data);
@@ -32,18 +29,23 @@ class _FormularioIngreso extends State<FormularioIngreso>{
 
   final _scaffoldkey = GlobalKey<ScaffoldState>();
   List<String> departamentos= [""];
+  String departamentoHint = "Seleccione el departamento";
   List<String> municipios= [""];
+  String municipioHint = "Seleccione el municipio";
   List<String> generos = ["HETEROSEXUAL","LESBIANA","GAY","BISEXUAL","TRANSEXUAL","INTERSEXUAL"];
+  String generoHint="Seleccione el genero";
   List<String> sexos = ['Hombre', 'Mujer'];
+  String sexoHint="Seleccione el Sexo";
   List<String> estados = ['SOLTERO (A)', 'CASADO (A)','DIVORCIADO (A)','SEPARADO(A)','UNION LIBRE'];
+  String estadoHint="Seleccione el estado civil";
 
   var nombreCon = TextEditingController(),carnetCon = TextEditingController(),seguCon = TextEditingController(),tercerCon = TextEditingController(),apellCon = TextEditingController(),segApCon = TextEditingController(),apellCasaCon = TextEditingController(),duiCon = TextEditingController(),nitCon = TextEditingController(),dirCon = TextEditingController(),numCon = TextEditingController(),numFijoCon = TextEditingController(),emailCon = TextEditingController();
   var check = ChkGraduado();
-  String _chosenValueM;
-  String _chosenValueD;
-  String _chosenValueG;
-  String _chosenValueS;
-  String _chosenValueE;
+  String _chosenValueM="";
+  String _chosenValueD="";
+  String _chosenValueG="";
+  String _chosenValueS="";
+  String _chosenValueE="";
 
   var fecha = FechaNacimiento();
   @override
@@ -58,7 +60,30 @@ class _FormularioIngreso extends State<FormularioIngreso>{
           for(var d in  li){
             departamentos.add(d["descripcion"]);
         }
+
+
       });
+    });
+
+    setState(() {
+      sexoHint = _data['sexo']=="M"?"Hombre":"Mujer";
+      estadoHint = _data['id_est_civil']==null?"":_data['id_est_civil']['descripcion'];
+      generoHint = _data['id_genero']==null?"":_data['id_genero']['descripcion'];
+      municipioHint = _data['id_muni']==null?"":_data['id_muni']['descripcion'];
+      departamentoHint = _data['id_depto']['descripcion'];
+      nombreCon.text = _data['p_nombre'];
+      seguCon.text = _data['s_nombre'];
+      tercerCon.text = _data['t_nombre'];
+      apellCon.text = _data['p_apellido'];
+      segApCon.text = _data['s_apellido'];
+      apellCasaCon.text =_data['c_apellido'];
+      carnetCon.text = _data['carnet'].toString();
+      duiCon.text = _data['dui'];
+      nitCon.text = _data['nit'];
+      dirCon.text = _data['direccion'];
+      numCon.text = _data['num_celular'];
+      numFijoCon.text = _data['num_fijo'];
+      emailCon.text=_data['email'];
     });
   }
 
@@ -83,7 +108,7 @@ class _FormularioIngreso extends State<FormularioIngreso>{
         ),
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(
-            hint: Text("| SELECCIONE DEPARTAMENTO"),
+            hint: Text(departamentoHint),
             style: TextStyle(color: Colors.black),
             items: departamentos.map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
@@ -93,17 +118,20 @@ class _FormularioIngreso extends State<FormularioIngreso>{
             }).toList(),
             onChanged: (String value) {
               var url = Uri.http(dominio.toString(),'/jeo/servicios/consultar_municipio.php',{
-                "idDepto":departamentos.indexOf(value).toString()
+                "idDepto":(int.tryParse(departamentos.indexOf(value).toString())).toString()
               });
-              _chosenValueD = departamentos.indexOf(value).toString();
+
               var respDept = http.get(url);
               respDept.then((val){
                 setState(() {
+                  _chosenValueD = (int.tryParse(departamentos.indexOf(value).toString())).toString();
                   var li = jsonDecode(val.body);
                   municipios = [];
                   for(var d in  li){
                     municipios.add(d["descripcion"]);
+
                   }
+                  departamentoHint = value;
                 });
               });
             },
@@ -129,7 +157,7 @@ class _FormularioIngreso extends State<FormularioIngreso>{
         ),
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(
-            hint: Text("| SELECCIONE MUNICIPIO"),
+            hint: Text(municipioHint),
 
             style: TextStyle(color: Colors.black),
             items: municipios.map<DropdownMenuItem<String>>((String value) {
@@ -140,7 +168,8 @@ class _FormularioIngreso extends State<FormularioIngreso>{
             }).toList(),
             onChanged: (String value) {
               setState(() {
-                _chosenValueM = municipios.indexOf(value).toString();
+                _chosenValueM = (int.tryParse(municipios.indexOf(value).toString())+1).toString();
+                municipioHint = value;
               });
             },
           ),
@@ -165,7 +194,7 @@ class _FormularioIngreso extends State<FormularioIngreso>{
         ),
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(
-            hint: Text("| SELECCIONE GENERO"),
+            hint: Text(generoHint),
 
             style: TextStyle(color: Colors.black),
             items: generos.map<DropdownMenuItem<String>>((String value) {
@@ -177,6 +206,7 @@ class _FormularioIngreso extends State<FormularioIngreso>{
             onChanged: (String value) {
               setState(() {
                 _chosenValueG = (int.tryParse(generos.indexOf(value).toString())+1).toString();
+                generoHint = value;
               });
             },
           ),
@@ -201,7 +231,7 @@ class _FormularioIngreso extends State<FormularioIngreso>{
         ),
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(
-            hint: Text("| SELECCIONE SEXO"),
+            hint: Text(sexoHint),
 
             style: TextStyle(color: Colors.black),
             items: sexos.map<DropdownMenuItem<String>>((String value) {
@@ -216,6 +246,8 @@ class _FormularioIngreso extends State<FormularioIngreso>{
                   _chosenValueS = "H";
                 else
                   _chosenValueS= "M";
+
+                sexoHint = value;
               });
             },
           ),
@@ -240,8 +272,7 @@ class _FormularioIngreso extends State<FormularioIngreso>{
         ),
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(
-            hint: Text("| SELECCIONE ESTADO CIVIL"),
-
+            hint: Text(estadoHint),
             style: TextStyle(color: Colors.black),
             items: estados.map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
@@ -252,24 +283,13 @@ class _FormularioIngreso extends State<FormularioIngreso>{
             onChanged: (String value) {
               setState(() {
                 _chosenValueE= (int.tryParse(estados.indexOf(value).toString())+1).toString();
+                estadoHint = value;
               });
             },
           ),
         )
     );
-    nombreCon.text = _data['p_nombre'];
-    seguCon.text = _data['s_nombre'];
-    tercerCon.text = _data['t_nombre'];
-    apellCon.text = _data['p_apellido'];
-    segApCon.text = _data['s_apellido'];
-    apellCasaCon.text =_data['c_apellido'];
-    carnetCon.text = _data['carnet'].toString();
-    duiCon.text = _data['dui'];
-    nitCon.text = _data['nit'];
-    dirCon.text = _data['direccion'];
-    numCon.text = _data['num_celular'];
-    numFijoCon.text = _data['num_fijo'];
-    emailCon.text=_data['email'];
+
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -484,11 +504,11 @@ class _FormularioIngreso extends State<FormularioIngreso>{
                       controller:carnetCon,
                     )
                 ),
-                Texto('Estado Civil'),
+                Texto('Estado Civil *'),
                 estadosDrop,
                 Texto('Sexo'),
                 sexosDrop,
-                Texto('Género'),
+                Texto('Género *'),
                 generosDrop,
                 Texto('Fecha de Nacimiento'),
                 fecha,
@@ -548,9 +568,9 @@ class _FormularioIngreso extends State<FormularioIngreso>{
                       controller: nitCon,
                     )
                 ),
-                Texto('Departamento'),
+                Texto('Departamento *'),
                 departamentosDrop,
-                Texto('Municipio'),
+                Texto('Municipio *'),
                 municipioDrop,
                 Texto('Dirección'),
                 Container(
@@ -683,9 +703,9 @@ class _FormularioIngreso extends State<FormularioIngreso>{
                       ),
                     ),
                     onPressed: (){
-                      print(_chosenValueG);
+
                       var prov = Provider.of<Proveedor>(this.context,listen: false);
-                      var url = Uri.http(dominio.toString(),'/jeo/servicios/ctg_estudiante.php',{
+                      var data = {
                         "accion":"U",
                         "id":prov.idEstudiante,
                         "idDepto":_chosenValueD,
@@ -710,13 +730,21 @@ class _FormularioIngreso extends State<FormularioIngreso>{
                         "graduado":check.isGraduadoCFP?1.toString():0.toString(),
                         "estado":"A",
                         "user":prov.usr
-                      });
+                      };
+                      var url = Uri.http(dominio.toString(),'/jeo/servicios/ctg_estudiante.php',data);
+                      print(url.normalizePath());
+                      if(_chosenValueE!=null&&_chosenValueG!=null&&_chosenValueM!=null&&_chosenValueD!=null){
+                        var response = http.get(url);
 
-                      var response = http.get(url);
+                        response.then((value) {
+                          this.widget.funcion();
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Registro actualizado")));
 
-                      response.then((value) {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Se registro correctamente")));
-                      });
+                        });
+                      }else{
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Hay campos obligatorios no llenados!")));
+                      }
+
                     },
                   ),
                 )

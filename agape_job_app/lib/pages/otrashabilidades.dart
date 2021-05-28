@@ -50,12 +50,13 @@ class _OtrasHabilidadesState extends State<OtrasHabilidades> {
                 child: Column(
                   children: [
                     for(var e in nivelIngles)
+                      if(profile!=null)
                       if(e['id']==profile['nivel_ingles'])
-                        Container(height: size.height*0.09,child: Center(child: Text("Nivel de ingles: "+e['descripcion']),),),
+                        Container(height: size.height*0.09,child: Center(child: Text("Nivel de inglés: "+e['descripcion']),),),
                     Text("Licencias:",style: TextStyle(fontWeight: FontWeight.bold),),
                     for(var l in licencias)
                       Container(height: size.height*0.09,child: Center(child: Text(l['descripcion']),),),
-                    Text("Habiliades Informaticas:",style: TextStyle(fontWeight: FontWeight.bold),),
+                    Text("Habilidades Informáticas:",style: TextStyle(fontWeight: FontWeight.bold),),
                     for(var h in habilidadesInformaticas)
                       Container(height: size.height*0.09,child: Center(child: Text(h['descripcion']),),),
 
@@ -115,13 +116,14 @@ class _OtrasHabilidadesState extends State<OtrasHabilidades> {
         {"accion": "CBE","id":prov.idEstudiante});
     var response = http.get(URI);
     response.then((value) {
-      setState(() {
-        var respuesta = jsonDecode(value.body)['info'];
-        for (var s in respuesta) {
-          this.licencias.add(s);
-        }
-      });
-    });
+      if(jsonDecode(value.body)['info']!="No existe informaci\u00f3n con ese criterio.") {
+        setState(() {
+          var respuesta = jsonDecode(value.body)['info'];
+          for (var s in respuesta) {
+            this.licencias.add(s);
+          }
+        });
+      }});
   }
 
   void obtenerHabilidades() {

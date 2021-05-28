@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:agape_job_app/services/provider.dart';
 import 'package:agape_job_app/util/colors.dart';
@@ -32,8 +33,12 @@ class _CapacitacionesRState extends State<CapacitacionesR> {
   @override
   void initState() {
     if(_data!=null){
-      var fechaA= widget.data['fecha_fin'].toString().split("/");
-      fechaFinal.currentDate = DateTime.parse(fechaA[2]+"-"+fechaA[1]+"-"+fechaA[0]);
+     if(widget.data['fecha_finalizacion']!=null){
+       var fechaA= widget.data['fecha_finalizacion'].toString().split("/");
+       if(fechaA.length<1)
+         fechaA= widget.data['fecha_fin'].toString().split("-");
+       fechaFinal.currentDate = DateTime.parse(fechaA[2]+"-"+fechaA[1]+"-"+fechaA[0]);
+     }
       institucionController.text = _data['institucion'];
       cursoController.text = _data['nombre_curso'];
     }

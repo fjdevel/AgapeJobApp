@@ -51,7 +51,9 @@ class _AplicacionesState extends State<Aplicaciones> {
       body: Center(
         child: Container(
           width: size.width*0.8,
-          child: ListView(
+          child:
+          (text.length>0)?
+          ListView(
             children:
             text.map((e){
               return  Container(
@@ -68,6 +70,9 @@ class _AplicacionesState extends State<Aplicaciones> {
               );
             }).toList()
             ,
+          ):
+          Container(
+            child: Text("No ha aplicado a ninguna plaza"),
           ),
         ),
       )

@@ -415,7 +415,7 @@ class _ProfileState extends State<Profile> {
                                                     MaterialPageRoute(
                                                         builder: (context) =>
                                                             FormularioIngreso(
-                                                                profile[0])),
+                                                                profile[0],obtenerPerfil)),
                                                   );
                                                 },
                                                 label: Text("Editar"),
@@ -500,7 +500,7 @@ class _ProfileState extends State<Profile> {
                                           ),
                                         ),
                                         for (var ce in listaCursosEx)
-                                          CursoExterno(ce,_actualizarInternas()),
+                                          CursoExterno(ce,_actualizarInternas),
                                         Container(
                                           margin: EdgeInsets.only(left: 5),
                                           child: ElevatedButton.icon(
@@ -561,7 +561,7 @@ class _ProfileState extends State<Profile> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          CapacitacionesInternasForm(null,_actualizarInternas())),
+                                                          CapacitacionesInternasForm(null,_actualizarInternas)),
                                                 );
                                               },
                                               icon: Icon(Icons.add),
@@ -776,7 +776,7 @@ class _ProfileState extends State<Profile> {
     var prov = Provider.of<Proveedor>(this.context, listen: false);
 
     var url = Uri.http(dominio.toString(),
-        '/jeo/servicios/consultar_perfil.php', {"id": prov.idEstudiante});
+        '/jeo/servicios/consultar_perfil.php', {"id": prov.idEstudiante,"accion":"C"});
 
     var response = http.get(url);
     response.then((value) {
@@ -789,6 +789,8 @@ class _ProfileState extends State<Profile> {
       }
     });
   }
+
+
 
   void obtenerExperiencia(){
     var prov = Provider.of<Proveedor>(this.context, listen: false);
@@ -818,8 +820,5 @@ class _ProfileState extends State<Profile> {
 
   _actualizarInternas(){
     print("actualizando");
-      obtenerCapIn();
-      obtenerCapEx();
-      obtenerExperiencia();
   }
 }

@@ -9,8 +9,8 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 class FormacionAcademicaForm extends StatefulWidget {
   var data;
-
-  FormacionAcademicaForm(this.data);
+ var actualizar;
+  FormacionAcademicaForm(this.data,this.actualizar);
 
 
   @override
@@ -164,36 +164,42 @@ class _FormacionAcademicaFormState extends State<FormacionAcademicaForm> {
                     var response = http.get(url);
                     response.then((value){
                       if(value.statusCode==200)
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.body.toString()),));
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(jsonDecode(value.body)['info']),));
+                      this.widget.actualizar();
                     });
                   }, icon: Icon(Icons.save), label: Text("Actualizar Experiencia Laboral"))
               )
                   :Container(
                   margin: EdgeInsets.only(top: 10),
                   child:ElevatedButton.icon(onPressed: (){
-                    var prov = Provider.of<Proveedor>(this.context,listen: false);
-                    var url = Uri.http(dominio.toString(),'/jeo/servicios/prc_formacion_academica.php',{
-                      "accion":"IP",
-                      "user":prov.usr
-                    });
-                    var response = http.post(url,body: jsonEncode({
-                      "ctgEstudiante":{
-                        "id":{
-                          "id":prov.idEstudiante
-                        }
-                      },
-                      "ctgNivEstudio":{
-                        "id":gradoValue
-                      },
-                      "fecha_fin":fecha.currentDate.toString(),
-                      "institucion":institucionController.text,
-                      "titulo_recibido":modalidadController.text
-                    }));
+                    if(gradoValue!=null){
+                      var prov = Provider.of<Proveedor>(this.context,listen: false);
+                      var url = Uri.http(dominio.toString(),'/jeo/servicios/prc_formacion_academica.php',{
+                        "accion":"IP",
+                        "user":prov.usr
+                      });
+                      var response = http.post(url,body: jsonEncode({
+                        "ctgEstudiante":{
+                          "id":{
+                            "id":prov.idEstudiante
+                          }
+                        },
+                        "ctgNivEstudio":{
+                          "id":gradoValue
+                        },
+                        "fecha_fin":fecha.currentDate.toString(),
+                        "institucion":institucionController.text,
+                        "titulo_recibido":modalidadController.text
+                      }));
 
-                    response.then((value){
-                      var r = jsonDecode(value.body);
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(r["info"]),));
-                    });
+                      response.then((value){
+                        var r = jsonDecode(value.body);
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(r["info"]),));
+                        this.widget.actualizar();
+                      });
+                    }else{
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Debe seleccionar un grado"),));
+                    }
                   }, icon: Icon(Icons.save), label: Text("Guardar Formacion Academica"))
               ),
             )

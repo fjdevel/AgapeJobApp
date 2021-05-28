@@ -36,7 +36,10 @@ class _ListRecomendationState extends State<ListRecomendation> {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
-          for(var e in listPl) CardJob(e)
+          if(listPl.isNotEmpty)
+            for(var e in listPl) CardJob(e)
+          else
+            Text("No hay recomendaciones")
 
         ],
       ),
@@ -53,14 +56,18 @@ class _ListRecomendationState extends State<ListRecomendation> {
     response.then((value) {
       print("peticion recomendados");
       setState(() {
-        if(value.body.isNotEmpty || value.body!=""){
-          if(!value.body.toString().contains("<!")){
-            var map= jsonDecode(value.body)["info"];
-            for(var o in map){
-              this.listPl.add(o);
+        try{
+          if(value.body.isNotEmpty || value.body!=""){
+            if(!value.body.toString().contains("<!")){
+              var map= jsonDecode(value.body)["info"];
+              for(var o in map){
+                  this.listPl.add(o);
+              }
             }
-          }
 
+          }
+        }catch(e){
+          log(e.toString());
         }
       });
     });
