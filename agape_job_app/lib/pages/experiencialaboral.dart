@@ -10,8 +10,9 @@ import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 class ExperienciaLaboral extends StatefulWidget {
   var data;
+  var funcion;
 
-  ExperienciaLaboral(this.data);
+  ExperienciaLaboral(this.data,this.funcion);
 
   @override
   _ExperienciaLaboralState createState() => _ExperienciaLaboralState(this.data);
@@ -251,10 +252,11 @@ class _ExperienciaLaboralState extends State<ExperienciaLaboral> {
                         response.then((value){
                           if(value.statusCode==200)
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.body.toString()),));
+
                           else
                             log(value.body);
                             //ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.body.toString()),));
-
+                          this.widget.funcion();
                         });
                       }, icon: Icon(Icons.save), label: Text("Actualizar Experiencia Laboral"))
                   )
@@ -281,6 +283,7 @@ class _ExperienciaLaboralState extends State<ExperienciaLaboral> {
                         response.then((value){
                           var r = jsonDecode(value.body);
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(r["info"]),));
+                          this.widget.funcion();
                         });
                       }, icon: Icon(Icons.save), label: Text("Guardar Experiencia Laboral"))
                   ),

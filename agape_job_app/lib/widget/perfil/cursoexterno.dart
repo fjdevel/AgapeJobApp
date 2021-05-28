@@ -30,9 +30,10 @@ class _CursoExternoState extends State<CursoExterno> {
       child: Column(
         children: [
           Text("Nombre del curso: "+_data['nombre_curso']),
-          Text("Institucion: "+_data['institucion']),
-          Text("fecha de finalizacion:"+_data['fecha_finalizacion']),
+          Text("Institución: "+_data['institucion']),
+          Text("Fecha finalización:"+_data['fecha_finalizacion']),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
                 margin: EdgeInsets.only(right: 10),

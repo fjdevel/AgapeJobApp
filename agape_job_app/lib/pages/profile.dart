@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:agape_job_app/pages/experiencialaboral.dart';
 import 'package:agape_job_app/services/provider.dart';
 import 'package:agape_job_app/util/colors.dart';
 import 'package:agape_job_app/util/globals.dart';
@@ -456,14 +457,21 @@ class _ProfileState extends State<Profile> {
                                           ),
                                         ),
                                         for (var ex in listaExperiencia)
-                                          Experiencia(ex,_actualizarInternas),
+                                          Experiencia(ex,obtenerExperiencia),
                                         Container(
                                           margin: EdgeInsets.only(left: 5),
                                           child: ElevatedButton.icon(
                                               onPressed: () {
-                                                Navigator.of(context)
-                                                    .popAndPushNamed(
-                                                        "/experiencia");
+                                                // Navigator.of(context)
+                                                //     .popAndPushNamed(
+                                                //         "/experiencia");
+
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ExperienciaLaboral(null,obtenerExperiencia)),
+                                                );
                                               },
                                               icon: Icon(Icons.add),
                                               label:
@@ -510,7 +518,7 @@ class _ProfileState extends State<Profile> {
                                               },
                                               icon: Icon(Icons.add),
                                               label: Text(
-                                                  "Capacitaciones Externas")),
+                                                  "Capacitaciónes Externas")),
                                         )
                                       ],
                                     ),
@@ -535,7 +543,7 @@ class _ProfileState extends State<Profile> {
                                                 bottom: size.height * 0.015),
                                             child: Center(
                                               child: Text(
-                                                "Capacitacion Internas",
+                                                "Capacitaciónes Internas",
                                                 style: TextStyle(
                                                     fontSize: 20,
                                                     fontWeight:
@@ -803,11 +811,11 @@ class _ProfileState extends State<Profile> {
     var responseExperienciaLaboral = http.get(urlExperienciaLaboral);
 
     responseExperienciaLaboral.then((value) {
-      print("peticion experiencia laboral");
       if (mounted) {
         setState(() {
           if (!value.body.toString().contains("<!DOCTYPE"))
             try{
+              listaExperiencia = [];
               listaExperiencia = jsonDecode(value.body)["info"];
             }catch(e){
 

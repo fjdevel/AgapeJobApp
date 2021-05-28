@@ -65,6 +65,12 @@ class _CapacitacionesInternasFormState
       fecha.currentDate = DateTime.parse(fechaA[2]+"-"+fechaA[1]+"-"+fechaA[0]);
       sedeValue = widget.data['ctgSede']['id'];
       sedeHint = widget.data['ctgSede']['descripcion'];
+      proyectoValue = widget.data['ctgProyecto']['id'];
+      proyectoHint = widget.data['ctgProyecto']['descripcion'];
+      grupoValue = widget.data['ctgGrupo']['id'];
+      grupoHint = widget.data['ctgGrupo']['descripcion'];
+      cursoValue = widget.data['curso']['id'];
+      cursoHint = widget.data['curso']['descripcion'];
     }
   }
 

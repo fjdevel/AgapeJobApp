@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
         "/perfil":(BuildContext context)=>Profile(),
         "/registro":(BuildContext context)=>RegisterPage(),
         "/aplicaciones":(BuildContext context)=>Aplicaciones(),
-        "/experiencia":(BuildContext context)=>ExperienciaLaboral(null),
+        "/experiencia":(BuildContext context)=>ExperienciaLaboral(null,null),
         "/configuracion":(BuildContext context)=>ConfiguracionPage(),
         "/capacitacionesForm":(BuildContext context)=>CapacitacionesR(null),
         "/capacitacionesInternasForm":(BuildContext context)=>CapacitacionesInternasForm(null,null),

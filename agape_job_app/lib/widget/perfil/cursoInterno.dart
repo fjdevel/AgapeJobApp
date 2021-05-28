@@ -75,6 +75,7 @@ class _CursoInternoState extends State<CursoInterno> {
             ),
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
                 margin: EdgeInsets.only(right: 10),

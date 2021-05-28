@@ -84,6 +84,11 @@ class _FormularioIngreso extends State<FormularioIngreso>{
       numCon.text = _data['num_celular'];
       numFijoCon.text = _data['num_fijo'];
       emailCon.text=_data['email'];
+      print(_data['graduado']);
+      if(_data['graduado']=="1")
+        check.isGraduadoCFP = true;
+      else
+        check.isGraduadoCFP = false;
     });
   }
 

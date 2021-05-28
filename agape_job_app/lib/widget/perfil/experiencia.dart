@@ -54,7 +54,7 @@ class _ExperienciaState extends State<Experiencia> {
               ElevatedButton.icon(style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.green)),onPressed: (){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ExperienciaLaboral(_data)),
+                  MaterialPageRoute(builder: (context) => ExperienciaLaboral(_data,this.widget.funcion)),
                 );
               }, icon: Icon(Icons.edit),label: Text("editar"),)
             ],
