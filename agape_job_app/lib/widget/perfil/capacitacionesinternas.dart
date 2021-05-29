@@ -270,6 +270,7 @@ class _CapacitacionesInternasFormState
                 margin: EdgeInsets.only(top: 10),
                 child:fecha,
               ),
+              (widget.data==null)?
               Container(
                 width: size.width * 0.85,
                 margin: EdgeInsets.fromLTRB(15, 15, 15, 25),
@@ -319,6 +320,63 @@ class _CapacitacionesInternasFormState
                     var response = http.post(url,body: data);
 
                     response.then((value) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(jsonDecode(value.body)["info"])));
+
+                    });
+                    this.widget.funcion();
+                  },
+                ),
+              ):
+              Container(
+                width: size.width * 0.85,
+                margin: EdgeInsets.fromLTRB(15, 15, 15, 25),
+                child: RaisedButton(
+                  padding: EdgeInsets.all(20),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)
+                  ),
+                  color: Colors.brown,
+                  child: Text(
+                    'Editar Capacitación',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w300
+                    ),
+                  ),
+                  onPressed: (){
+                    var prov = Provider.of<Proveedor>(this.context,listen: false);
+                    var url = Uri.http(dominio.toString(),'/jeo/servicios/prc_curso_estudiante.php',{
+                      "accion":"U",
+                    });
+                    var data = jsonEncode({
+                      "email_contacto":emailController.text,
+                      "fecha_fin":fecha.currentDate.toString(),
+                      "insaforp":"0",
+                      "usuario":prov.usr,
+                      "curso":{
+                        "id":cursoValue
+                      },
+                      "ctgSede":{
+                        "id":sedeValue,
+                      },
+                      "ctgProyecto":{
+                        "id":proyectoValue
+                      },
+                      "ctgGrupo":{
+                        "id":grupoValue
+                      },
+                      "ctgEstudiante":{
+                        "id":{
+                          "id":prov.idEstudiante
+                        }
+                      }
+                    });
+
+                    var response = http.post(url,body: data);
+
+                    response.then((value) {
+                      print(data.toString());
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(jsonDecode(value.body)["info"])));
 
                     });

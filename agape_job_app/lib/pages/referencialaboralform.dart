@@ -241,7 +241,7 @@ class _ReferenciaLaboralFormState extends State<ReferenciaLaboralForm> {
                   var response = http.get(url);
                   response.then((value){
                     if(value.statusCode==200)
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.body.toString()),));
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(jsonDecode(value.body)['info']),));
 
                   });
                 }, icon: Icon(Icons.save), label: Text("Actualizar Referencia Laboral"))

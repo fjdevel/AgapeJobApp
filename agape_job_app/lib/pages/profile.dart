@@ -39,6 +39,7 @@ class _ProfileState extends State<Profile> {
       obtenerExperiencia();
     }
   }
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +48,7 @@ class _ProfileState extends State<Profile> {
 
     if (profile != null)
       return Scaffold(
+        key: _scaffoldKey,
         backgroundColor: dPrimaryColor,
         appBar: DPlazaBar("Mi Perfil"),
         body: Container(
@@ -462,10 +464,6 @@ class _ProfileState extends State<Profile> {
                                           margin: EdgeInsets.only(left: 5),
                                           child: ElevatedButton.icon(
                                               onPressed: () {
-                                                // Navigator.of(context)
-                                                //     .popAndPushNamed(
-                                                //         "/experiencia");
-
                                                 Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
@@ -476,6 +474,20 @@ class _ProfileState extends State<Profile> {
                                               icon: Icon(Icons.add),
                                               label:
                                                   Text("Experiencia Laboral")),
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(left: 5),
+                                          child: ElevatedButton.icon(
+                                            style: ElevatedButton.styleFrom(
+                                              primary: Colors.green
+                                            ),
+                                              onPressed: () {
+                                                obtenerExperiencia();
+                                              },
+                                              icon: Icon(Icons.cloud_download_sharp),
+
+                                              label:
+                                              Text("Actualizar datos")),
                                         )
                                       ],
                                     ),
@@ -508,7 +520,7 @@ class _ProfileState extends State<Profile> {
                                           ),
                                         ),
                                         for (var ce in listaCursosEx)
-                                          CursoExterno(ce,_actualizarInternas),
+                                          CursoExterno(ce,obtenerCapEx),
                                         Container(
                                           margin: EdgeInsets.only(left: 5),
                                           child: ElevatedButton.icon(
@@ -519,7 +531,21 @@ class _ProfileState extends State<Profile> {
                                               icon: Icon(Icons.add),
                                               label: Text(
                                                   "Capacitaciónes Externas")),
-                                        )
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(left: 5),
+                                          child: ElevatedButton.icon(
+                                              style: ElevatedButton.styleFrom(
+                                                  primary: Colors.green
+                                              ),
+                                              onPressed: () {
+                                                obtenerCapEx();
+                                              },
+                                              icon: Icon(Icons.cloud_download_sharp),
+
+                                              label:
+                                              Text("Actualizar datos")),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -557,7 +583,7 @@ class _ProfileState extends State<Profile> {
                                             children: [
                                               if(listaCursosIn.length>0)
                                                 for (var ci in listaCursosIn)
-                                                  CursoInterno(ci,_actualizarInternas)
+                                                  CursoInterno(ci,obtenerCapIn)
                                             ],
                                           ),
                                         ),
@@ -569,13 +595,27 @@ class _ProfileState extends State<Profile> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          CapacitacionesInternasForm(null,_actualizarInternas)),
+                                                          CapacitacionesInternasForm(null,obtenerCapIn)),
                                                 );
                                               },
                                               icon: Icon(Icons.add),
                                               label: Text(
                                                   "Capacitaciones Internas")),
-                                        )
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(left: 5),
+                                          child: ElevatedButton.icon(
+                                              style: ElevatedButton.styleFrom(
+                                                  primary: Colors.green
+                                              ),
+                                              onPressed: () {
+                                                obtenerCapIn();
+                                              },
+                                              icon: Icon(Icons.cloud_download_sharp),
+
+                                              label:
+                                              Text("Actualizar datos")),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -734,6 +774,7 @@ class _ProfileState extends State<Profile> {
   }
 
   void obtenerCapIn() {
+    cleanInter();
     var prov = Provider.of<Proveedor>(this.context, listen: false);
 
     var urlCapaIn = Uri.http(
@@ -755,6 +796,8 @@ class _ProfileState extends State<Profile> {
   }
 
   void obtenerCapEx() {
+    cleanEx();
+
     var prov = Provider.of<Proveedor>(this.context, listen: false);
 
     var urlCursosEx =
@@ -766,7 +809,6 @@ class _ProfileState extends State<Profile> {
     });
     var repCursoEx = http.get(urlCursosEx);
     repCursoEx.then((value) {
-      print("peticion experiencia");
       setState(() {
         try{
           var resp = jsonDecode(value.body)['info'];
@@ -801,6 +843,8 @@ class _ProfileState extends State<Profile> {
 
 
   void obtenerExperiencia(){
+    limpiarExperiencia();
+    print("peticion experiencia");
     var prov = Provider.of<Proveedor>(this.context, listen: false);
 
     var urlExperienciaLaboral = Uri.http(
@@ -811,22 +855,35 @@ class _ProfileState extends State<Profile> {
     var responseExperienciaLaboral = http.get(urlExperienciaLaboral);
 
     responseExperienciaLaboral.then((value) {
-      if (mounted) {
         setState(() {
-          if (!value.body.toString().contains("<!DOCTYPE"))
-            try{
-              listaExperiencia = [];
-              listaExperiencia = jsonDecode(value.body)["info"];
-            }catch(e){
 
-            }
+          var map =jsonDecode(value.body)['info'];
+          for(var e in map){
+            listaExperiencia.add(e);
+          }
         });
-      }
+    });
+  }
+
+  _actualizarInternas(){
+  }
+
+  void limpiarExperiencia() {
+    setState(() {
+      listaExperiencia = [];
+    });
+  }
+
+  void cleanEx() {
+    setState(() {
+      listaCursosEx = [];
     });
 
   }
 
-  _actualizarInternas(){
-    print("actualizando");
+  void cleanInter() {
+    setState(() {
+      listaCursosIn = [];
+    });
   }
 }

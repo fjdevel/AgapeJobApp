@@ -31,6 +31,7 @@ class _FormularioIngreso extends State<FormularioIngreso>{
   List<String> departamentos= [""];
   String departamentoHint = "Seleccione el departamento";
   List<String> municipios= [""];
+  var municipiosMap=[];
   String municipioHint = "Seleccione el municipio";
   List<String> generos = ["HETEROSEXUAL","LESBIANA","GAY","BISEXUAL","TRANSEXUAL","INTERSEXUAL"];
   String generoHint="Seleccione el genero";
@@ -66,9 +67,12 @@ class _FormularioIngreso extends State<FormularioIngreso>{
     });
 
     setState(() {
-      sexoHint = _data['sexo']=="M"?"Hombre":"Mujer";
+      sexoHint = _data['sexo']=="M"||_data['sexo']=="m"?"Mujer":"Hombre";
+      _chosenValueS = _data['sexo']=="M"||_data['sexo']=="m"?"H":"M";
       estadoHint = _data['id_est_civil']==null?"":_data['id_est_civil']['descripcion'];
+      _chosenValueE = _data['id_est_civil']==null?"":_data['id_est_civil']['id'].toString();
       generoHint = _data['id_genero']==null?"":_data['id_genero']['descripcion'];
+      _chosenValueG =  _data['id_genero']==null?"":_data['id_genero']['id'].toString();
       municipioHint = _data['id_muni']==null?"":_data['id_muni']['descripcion'];
       departamentoHint = _data['id_depto']['descripcion'];
       nombreCon.text = _data['p_nombre'];
@@ -136,6 +140,7 @@ class _FormularioIngreso extends State<FormularioIngreso>{
                     municipios.add(d["descripcion"]);
 
                   }
+                  municipiosMap = li;
                   departamentoHint = value;
                 });
               });
@@ -173,7 +178,11 @@ class _FormularioIngreso extends State<FormularioIngreso>{
             }).toList(),
             onChanged: (String value) {
               setState(() {
-                _chosenValueM = (int.tryParse(municipios.indexOf(value).toString())+1).toString();
+                for(var m in municipiosMap){
+                  if(m['descripcion']==value)
+                    _chosenValueM = m['id']['id'].toString();
+
+                }
                 municipioHint = value;
               });
             },

@@ -44,9 +44,7 @@ class _ExperienciaLaboralState extends State<ExperienciaLaboral> {
       empresaController.text = _data['nombre_empresa'];
       jefeController.text = _data['nombre_jefe'];
       cargoController.text = _data['cargo'];
-      setState(() {
 
-      });
     }
   }
 
@@ -240,8 +238,8 @@ class _ExperienciaLaboralState extends State<ExperienciaLaboral> {
                         });
                         var data = jsonEncode({
                           'cargo':cargoController.text,
-                          "fecha_fin":fechaFin.currentDate,
-                          "fecha_inicio":fechaInicio.currentDate,
+                          "fecha_fin":fechaFin.currentDate.toString(),
+                          "fecha_inicio":fechaInicio.currentDate.toString(),
                           "funciones":funcionesController.text,
                           "idEstudiante":prov.idEstudiante.toString(),
                           "nombre_empresa":empresaController.text,
@@ -251,13 +249,14 @@ class _ExperienciaLaboralState extends State<ExperienciaLaboral> {
                         var response = http.post(url,body: data);
                         response.then((value){
                           if(value.statusCode==200)
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.body.toString()),));
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(jsonDecode(value.body)['info']),));
 
                           else
                             log(value.body);
                             //ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value.body.toString()),));
-                          this.widget.funcion();
+
                         });
+                        this.widget.funcion();
                       }, icon: Icon(Icons.save), label: Text("Actualizar Experiencia Laboral"))
                   )
                       :Container(
