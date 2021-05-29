@@ -835,6 +835,8 @@ class _ProfileState extends State<Profile> {
         setState(() {
           if (!value.body.toString().contains("<!DOCTYPE"))
             profile = jsonDecode(value.body);
+
+          print(profile[0].toString());
         });
       }
     });
