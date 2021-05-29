@@ -74,7 +74,9 @@ class _FormularioIngreso extends State<FormularioIngreso>{
       generoHint = _data['id_genero']==null?"":_data['id_genero']['descripcion'];
       _chosenValueG =  _data['id_genero']==null?"":_data['id_genero']['id'].toString();
       municipioHint = _data['id_muni']==null?"":_data['id_muni']['descripcion'];
+      _chosenValueM =  _data['id_muni']==null?"":_data['id_muni']['id'];
       departamentoHint = _data['id_depto']['descripcion'];
+      _chosenValueD = _data['id_depto']['id'];
       nombreCon.text = _data['p_nombre'];
       seguCon.text = _data['s_nombre'];
       tercerCon.text = _data['t_nombre'];
